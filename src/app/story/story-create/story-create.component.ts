@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-story-create',
@@ -17,8 +17,22 @@ export class StoryCreateComponent implements OnInit {
 
   private initializeForm() {
     this.createStoryForm = this.fb.group({
-      title: [''],
-      content: ['']
+      title: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(140)
+        ]
+      ],
+      content: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(10000)
+        ]
+      ]
     });
   }
 }
