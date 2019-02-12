@@ -95,10 +95,6 @@ describe('StoryCreateComponent', () => {
   });
 });
 
-function longStringMaker(x: number): string {
-  let longString = '';
-  for (let i = 0; i < x; i++) {
-    longString += 'a';
-  }
-  return longString;
+function longStringMaker(numberOfRepeats: number): string {
+  return 'a'.repeat(numberOfRepeats);
 }
