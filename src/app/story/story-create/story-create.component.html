@@ -1,9 +1,16 @@
 <mat-card>
   <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>Create a Story</mat-card-title>
+    <mat-card-title>Create A Story</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <form></form>
+    <form class="kek" [formGroup]="createStoryForm">
+      <mat-form-field>
+        <input matInput placeholder="Title" />
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Enter your story here!"></textarea>
+      </mat-form-field>
+      <button mat-raised-button color="primary">Create</button>
+    </form>
   </mat-card-content>
 </mat-card>
