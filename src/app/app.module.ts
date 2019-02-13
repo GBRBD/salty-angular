@@ -8,6 +8,7 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 
 import { StoryModule } from './story/story.module';
+import { EditorModule } from './editor/editor.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +17,8 @@ import { StoryModule } from './story/story.module';
     AppRoutingModule,
     SharedModule,
     CoreModule,
-    StoryModule
+    StoryModule,
+    EditorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

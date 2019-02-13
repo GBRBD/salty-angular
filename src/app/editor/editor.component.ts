@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-story-create',
-  templateUrl: './story-create.component.html',
-  styleUrls: ['./story-create.component.scss']
+  selector: 'app-editor',
+  templateUrl: './editor.component.html',
+  styleUrls: ['./editor.component.scss']
 })
-export class StoryCreateComponent implements OnInit {
-  createStoryForm: FormGroup;
+export class EditorComponent implements OnInit {
+  storyForm: FormGroup;
 
   constructor(private fb: FormBuilder) {}
 
@@ -16,7 +16,7 @@ export class StoryCreateComponent implements OnInit {
   }
 
   private initializeForm() {
-    this.createStoryForm = this.fb.group({
+    this.storyForm = this.fb.group({
       title: [
         '',
         [
