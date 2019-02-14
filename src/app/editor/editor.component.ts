@@ -8,6 +8,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class EditorComponent implements OnInit {
   storyForm: FormGroup;
+  emptyTitleError = 'Please enter a story title!';
+  tooLongTitleError = 'Title is too long! Max 140 character!';
+  emptyContentError = 'Please write a story!';
+  tooLongContentError = 'Story is too long! Max 10000 character!';
 
   constructor(private fb: FormBuilder) {}
 

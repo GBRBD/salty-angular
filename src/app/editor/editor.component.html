@@ -1,22 +1,40 @@
-<div class="wrapper">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Create a story</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <form [formGroup]="storyForm">
-        <mat-form-field>
-          <input matInput placeholder="Title" formControlName="title" />
-        </mat-form-field>
-        <mat-form-field>
-          <textarea
-            matInput
-            placeholder="Enter your story here!"
-            formControlName="content"
-          ></textarea>
-        </mat-form-field>
-        <button mat-raised-button color="primary">Create</button>
-      </form>
-    </mat-card-content>
-  </mat-card>
-</div>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Create a story</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="storyForm">
+      <mat-form-field>
+        <input matInput placeholder="Title" formControlName="title" />
+        <mat-error
+          class="title"
+          *ngIf="!!storyForm.controls.title.errors.required"
+          >{{ emptyTitleError }}</mat-error
+        >
+        <mat-error
+          class="title"
+          *ngIf="!!storyForm.controls.title.errors.maxlength"
+          >{{ tooLongTitleError }}</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <textarea
+          matInput
+          placeholder="Enter your story here!"
+          formControlName="content"
+        ></textarea>
+        <mat-error
+          class="content"
+          *ngIf="!!storyForm.controls.content.errors.required"
+          >{{ emptyContentError }}</mat-error
+        >
+        <mat-error
+          class="content"
+          *ngIf="!!storyForm.controls.content.errors.maxlength"
+          >{{ tooLongContentError }}</mat-error
+        >
+      </mat-form-field>
+      <button mat-raised-button color="primary">Create</button>
+    </form>
+  </mat-card-content>
+</mat-card>

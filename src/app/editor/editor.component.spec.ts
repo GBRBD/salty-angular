@@ -9,6 +9,7 @@ describe('EditorComponent', () => {
   let fixture: ComponentFixture<EditorComponent>;
   let title: AbstractControl;
   let content: AbstractControl;
+  let editorElement: HTMLElement;
   let errors;
 
   beforeEach(async(() => {
@@ -22,6 +23,7 @@ describe('EditorComponent', () => {
     fixture = TestBed.createComponent(EditorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    editorElement = fixture.nativeElement;
     errors = {};
     title = component.storyForm.controls.title;
     content = component.storyForm.controls.content;
@@ -52,12 +54,12 @@ describe('EditorComponent', () => {
       });
 
       it('should be invalid when input length is less than 3 character', () => {
-        title.setValue('Te');
+        title.setValue('xx');
         expect(title.valid).toBeFalsy();
       });
 
       it('should be valid when input length is greater than or equal to 3 character', () => {
-        title.setValue('Tes');
+        title.setValue('xxx');
         expect(title.valid).toBeTruthy();
       });
 
@@ -65,6 +67,23 @@ describe('EditorComponent', () => {
         const longString = longStringMaker(141);
         title.setValue(longString);
         expect(title.valid).toBeFalsy();
+      });
+
+      it('should show error messages when title input is empty', () => {
+        title.setValue('');
+        title.markAsTouched();
+        fixture.detectChanges();
+        const errorMessage = editorElement.querySelector('mat-error.title');
+        expect(errorMessage.textContent).toBe(component.emptyTitleError);
+      });
+
+      it('should show error messages when title input too long', () => {
+        const longString = longStringMaker(141);
+        title.setValue(longString);
+        title.markAsTouched();
+        fixture.detectChanges();
+        const errorMessage = editorElement.querySelector('mat-error.title');
+        expect(errorMessage.textContent).toBe(component.tooLongTitleError);
       });
     });
 
@@ -78,12 +97,12 @@ describe('EditorComponent', () => {
       });
 
       it('should be invalid when input length is less than 3 character', () => {
-        content.setValue('Te');
+        content.setValue('xx');
         expect(content.valid).toBeFalsy();
       });
 
       it('should be valid when input length is greater than or equal to 3 character', () => {
-        content.setValue('Tes');
+        content.setValue('xxx');
         expect(content.valid).toBeTruthy();
       });
 
@@ -92,10 +111,27 @@ describe('EditorComponent', () => {
         content.setValue(longString);
         expect(content.valid).toBeFalsy();
       });
+
+      it('should show error messages when content input is empty', () => {
+        content.setValue('');
+        content.markAsTouched();
+        fixture.detectChanges();
+        const errorMessage = editorElement.querySelector('mat-error.content');
+        expect(errorMessage.textContent).toBe(component.emptyContentError);
+      });
+
+      it('should show error messages when content input is too long', () => {
+        const longString = longStringMaker(10001);
+        content.setValue(longString);
+        content.markAsTouched();
+        fixture.detectChanges();
+        const errorMessage = editorElement.querySelector('mat-error.content');
+        expect(errorMessage.textContent).toBe(component.tooLongContentError);
+      });
     });
   });
 });
 
 function longStringMaker(numberOfRepeats: number): string {
-  return 'a'.repeat(numberOfRepeats);
+  return 'x'.repeat(numberOfRepeats);
 }
