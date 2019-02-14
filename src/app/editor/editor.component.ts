@@ -19,6 +19,10 @@ export class EditorComponent implements OnInit {
     this.initializeForm();
   }
 
+  public onSubmit() {
+    console.log('works');
+  }
+
   private initializeForm() {
     this.storyForm = this.fb.group({
       title: [

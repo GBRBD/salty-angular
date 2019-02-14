@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditorComponent } from './editor.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { AbstractControl } from '@angular/forms';
+import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
 
 describe('EditorComponent', () => {
   let component: EditorComponent;
@@ -14,7 +14,7 @@ describe('EditorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [SharedModule],
+      imports: [SharedModule, ReactiveFormsModule],
       declarations: [EditorComponent]
     }).compileComponents();
   }));
@@ -40,6 +40,13 @@ describe('EditorComponent', () => {
 
     it('should be defined after Angular calls ngOnInit', () => {
       expect(component.storyForm).toBeDefined();
+    });
+
+    it('should submit form when form is valid ', () => {
+      spyOn(console, 'log');
+      component.onSubmit();
+      fixture.detectChanges();
+      expect(console.log).toHaveBeenCalled();
     });
 
     describe('Title Field', () => {
