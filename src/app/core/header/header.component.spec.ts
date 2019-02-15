@@ -26,12 +26,9 @@ describe('HeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it(`should show 'Salty' in title`, () => {
-    expect(component.title).toBe('Salty');
-  });
-
   it('should show title in a span tag', () => {
     const toolbarRowSpan = headerElement.querySelector('mat-toolbar-row span');
-    expect(toolbarRowSpan.textContent).toBe('Salty');
+    expect(toolbarRowSpan.textContent).toContain('Salty');
+    expect(component.title).toContain('Salty');
   });
 });

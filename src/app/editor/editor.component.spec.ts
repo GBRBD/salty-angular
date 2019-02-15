@@ -81,7 +81,7 @@ describe('EditorComponent', () => {
         title.markAsTouched();
         fixture.detectChanges();
         const errorMessage = editorElement.querySelector('mat-error.title');
-        expect(errorMessage.textContent).toBe(component.emptyTitleError);
+        expect(errorMessage.textContent).toContain(component.emptyTitleError);
       });
 
       it('should show error messages when title input too long', () => {
@@ -90,7 +90,7 @@ describe('EditorComponent', () => {
         title.markAsTouched();
         fixture.detectChanges();
         const errorMessage = editorElement.querySelector('mat-error.title');
-        expect(errorMessage.textContent).toBe(component.tooLongTitleError);
+        expect(errorMessage.textContent).toContain(component.tooLongTitleError);
       });
     });
 
@@ -124,7 +124,7 @@ describe('EditorComponent', () => {
         content.markAsTouched();
         fixture.detectChanges();
         const errorMessage = editorElement.querySelector('mat-error.content');
-        expect(errorMessage.textContent).toBe(component.emptyContentError);
+        expect(errorMessage.textContent).toContain(component.emptyContentError);
       });
 
       it('should show error messages when content input is too long', () => {
@@ -133,7 +133,9 @@ describe('EditorComponent', () => {
         content.markAsTouched();
         fixture.detectChanges();
         const errorMessage = editorElement.querySelector('mat-error.content');
-        expect(errorMessage.textContent).toBe(component.tooLongContentError);
+        expect(errorMessage.textContent).toContain(
+          component.tooLongContentError
+        );
       });
     });
   });
