@@ -3,18 +3,28 @@
     <mat-card-title>Create a story</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <form [formGroup]="storyForm" (ngSubmit)="onSubmit()">
+    <form
+      [formGroup]="storyForm"
+      #formDirective="ngForm"
+      (ngSubmit)="onSubmit()"
+    >
       <mat-form-field>
         <input matInput placeholder="Title" formControlName="title" />
         <mat-error
           class="title"
-          *ngIf="!!storyForm.controls.title.errors.required"
-          >{{ emptyTitleError }}</mat-error
+          *ngIf="
+            storyForm.controls.title.touched &&
+            !!storyForm.controls.title.errors?.required
+          "
+          >{{ errorMessages.emptyTitleError }}</mat-error
         >
         <mat-error
           class="title"
-          *ngIf="!!storyForm.controls.title.errors.maxlength"
-          >{{ tooLongTitleError }}</mat-error
+          *ngIf="
+            storyForm.controls.title.touched &&
+            !!storyForm.controls.title.errors?.maxlength
+          "
+          >{{ errorMessages.tooLongTitleError }}</mat-error
         >
       </mat-form-field>
       <mat-form-field>
@@ -25,16 +35,29 @@
         ></textarea>
         <mat-error
           class="content"
-          *ngIf="!!storyForm.controls.content.errors.required"
-          >{{ emptyContentError }}
+          *ngIf="
+            storyForm.controls.content.touched &&
+            !!storyForm.controls.content.errors?.required
+          "
+          >{{ errorMessages.emptyContentError }}
         </mat-error>
         <mat-error
           class="content"
-          *ngIf="!!storyForm.controls.content.errors.maxlength"
-          >{{ tooLongContentError }}
+          *ngIf="
+            storyForm.controls.content.touched &&
+            !!storyForm.controls.content.errors?.maxlength
+          "
+          >{{ errorMessages.tooLongContentError }}
         </mat-error>
       </mat-form-field>
-      <button mat-raised-button color="primary">Create</button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!storyForm.valid"
+      >
+        Create
+      </button>
     </form>
   </mat-card-content>
 </mat-card>

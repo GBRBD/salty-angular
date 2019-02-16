@@ -2,7 +2,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditorComponent } from './editor.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  ReactiveFormsModule,
+  FormBuilder
+} from '@angular/forms';
+import { StoriesService } from '../shared/services/stories.service';
 
 describe('EditorComponent', () => {
   let component: EditorComponent;
@@ -10,23 +15,34 @@ describe('EditorComponent', () => {
   let title: AbstractControl;
   let content: AbstractControl;
   let editorElement: HTMLElement;
+  let storiesServiceSpy: StoriesService;
   let errors;
 
   beforeEach(async(() => {
+    // const spy = jasmine.createSpyObj('StoriesService', ['createStory']);
+
     TestBed.configureTestingModule({
       imports: [SharedModule, ReactiveFormsModule],
       declarations: [EditorComponent]
+      // providers: [{ provide: StoriesService, useValue: spy }]
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EditorComponent);
     component = fixture.componentInstance;
+    storiesServiceSpy = TestBed.get(StoriesService);
     fixture.detectChanges();
     editorElement = fixture.nativeElement;
     errors = {};
     title = component.storyForm.controls.title;
     content = component.storyForm.controls.content;
+  });
+
+  afterEach(() => {
+    component.storyForm.reset();
+    component.formDirective.resetForm();
+    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -43,10 +59,24 @@ describe('EditorComponent', () => {
     });
 
     it('should submit form when form is valid ', () => {
-      spyOn(console, 'log');
+      title.setValue('xxx');
+      content.setValue('xxxx');
+      spyOn(storiesServiceSpy, 'createStory');
       component.onSubmit();
       fixture.detectChanges();
-      expect(console.log).toHaveBeenCalled();
+      expect(storiesServiceSpy.createStory).toHaveBeenCalled();
+    });
+
+    it('should not submit form when form is invalid ', () => {
+      spyOn(storiesServiceSpy, 'createStory');
+      component.onSubmit();
+      fixture.detectChanges();
+      expect(storiesServiceSpy.createStory).not.toHaveBeenCalled();
+    });
+
+    it('Submit button should be disabled when form is invalid', () => {
+      const submitButton = editorElement.querySelector('button');
+      expect(submitButton.disabled).toBeTruthy();
     });
 
     describe('Title Field', () => {
@@ -81,7 +111,9 @@ describe('EditorComponent', () => {
         title.markAsTouched();
         fixture.detectChanges();
         const errorMessage = editorElement.querySelector('mat-error.title');
-        expect(errorMessage.textContent).toContain(component.emptyTitleError);
+        expect(errorMessage.textContent).toContain(
+          component.errorMessages.emptyTitleError
+        );
       });
 
       it('should show error messages when title input too long', () => {
@@ -90,7 +122,9 @@ describe('EditorComponent', () => {
         title.markAsTouched();
         fixture.detectChanges();
         const errorMessage = editorElement.querySelector('mat-error.title');
-        expect(errorMessage.textContent).toContain(component.tooLongTitleError);
+        expect(errorMessage.textContent).toContain(
+          component.errorMessages.tooLongTitleError
+        );
       });
     });
 
@@ -124,7 +158,9 @@ describe('EditorComponent', () => {
         content.markAsTouched();
         fixture.detectChanges();
         const errorMessage = editorElement.querySelector('mat-error.content');
-        expect(errorMessage.textContent).toContain(component.emptyContentError);
+        expect(errorMessage.textContent).toContain(
+          component.errorMessages.emptyContentError
+        );
       });
 
       it('should show error messages when content input is too long', () => {
@@ -134,7 +170,7 @@ describe('EditorComponent', () => {
         fixture.detectChanges();
         const errorMessage = editorElement.querySelector('mat-error.content');
         expect(errorMessage.textContent).toContain(
-          component.tooLongContentError
+          component.errorMessages.tooLongContentError
         );
       });
     });

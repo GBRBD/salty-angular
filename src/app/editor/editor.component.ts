@@ -1,5 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormGroupDirective
+} from '@angular/forms';
+import { StoriesService } from '../shared/services/stories.service';
+import { Story } from '../shared/models/story.model';
 
 @Component({
   selector: 'app-editor',
@@ -7,20 +14,24 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./editor.component.scss']
 })
 export class EditorComponent implements OnInit {
+  @ViewChild('formDirective') formDirective: FormGroupDirective;
   storyForm: FormGroup;
-  emptyTitleError = 'Please enter a story title!';
-  tooLongTitleError = 'Title is too long! Max 140 character!';
-  emptyContentError = 'Please write a story!';
-  tooLongContentError = 'Story is too long! Max 10000 character!';
+  errorMessages = {
+    emptyTitleError: 'Please enter a story title!',
+    tooLongTitleError: 'Title is too long! Max 140 character!',
+    emptyContentError: 'Please write a story!',
+    tooLongContentError: 'Story is too long! Max 10000 character!'
+  };
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, public storiesService: StoriesService) {}
 
   ngOnInit() {
     this.initializeForm();
   }
 
-  public onSubmit() {
-    console.log('works');
+  onSubmit() {
+    this.submitForm();
+    this.resetForm();
   }
 
   private initializeForm() {
@@ -42,5 +53,21 @@ export class EditorComponent implements OnInit {
         ]
       ]
     });
+  }
+
+  private submitForm() {
+    if (this.storyForm.invalid) {
+      return;
+    }
+    const story: Story = {
+      title: this.storyForm.value.title,
+      content: this.storyForm.value.content
+    };
+    this.storiesService.createStory(story);
+  }
+
+  private resetForm() {
+    this.storyForm.reset();
+    this.formDirective.resetForm();
   }
 }
