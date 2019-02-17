@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StoryListComponent } from './story-list.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('StoryListComponent', () => {
   let component: StoryListComponent;
@@ -8,9 +9,9 @@ describe('StoryListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StoryListComponent ]
-    })
-    .compileComponents();
+      imports: [SharedModule],
+      declarations: [StoryListComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
