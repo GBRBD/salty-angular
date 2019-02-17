@@ -6,6 +6,10 @@ import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { StoriesService } from '../shared/services/stories.service';
 import { RouterTestingModule } from '@angular/router/testing';
 
+const longStringMaker = (numberOfRepeats: number): string => {
+  return 'x'.repeat(numberOfRepeats);
+};
+
 describe('EditorComponent', () => {
   let component: EditorComponent;
   let fixture: ComponentFixture<EditorComponent>;
@@ -16,7 +20,7 @@ describe('EditorComponent', () => {
   let errors;
 
   beforeEach(async(() => {
-    // const spy = jasmine.createSpyObj('StoriesService', ['createStory']);
+    // const spy = jasmine.createSpyObj('StoriesService', ['addStory']);
 
     TestBed.configureTestingModule({
       imports: [SharedModule, ReactiveFormsModule, RouterTestingModule],
@@ -58,17 +62,17 @@ describe('EditorComponent', () => {
     it('should submit form when form is valid ', () => {
       title.setValue('xxx');
       content.setValue('xxxx');
-      spyOn(storiesServiceSpy, 'createStory');
+      spyOn(storiesServiceSpy, 'addStory');
       component.onSubmit();
       fixture.detectChanges();
-      expect(storiesServiceSpy.createStory).toHaveBeenCalled();
+      expect(storiesServiceSpy.addStory).toHaveBeenCalled();
     });
 
     it('should not submit form when form is invalid ', () => {
-      spyOn(storiesServiceSpy, 'createStory');
+      spyOn(storiesServiceSpy, 'addStory');
       component.onSubmit();
       fixture.detectChanges();
-      expect(storiesServiceSpy.createStory).not.toHaveBeenCalled();
+      expect(storiesServiceSpy.addStory).not.toHaveBeenCalled();
     });
 
     it('Submit button should be disabled when form is invalid', () => {
@@ -173,7 +177,3 @@ describe('EditorComponent', () => {
     });
   });
 });
-
-function longStringMaker(numberOfRepeats: number): string {
-  return 'x'.repeat(numberOfRepeats);
-}

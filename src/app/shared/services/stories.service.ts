@@ -9,10 +9,10 @@ import { Router } from '@angular/router';
 export class StoriesService {
   constructor(private http: HttpClient, private router: Router) {}
 
-  createStory(story: Story) {
+  addStory(story: Story) {
     this.http
       .post<Story>('http://localhost:3000/api/v1/story', story)
-      .subscribe(responseData => {
+      .subscribe(() => {
         this.router.navigate(['/']);
       });
   }

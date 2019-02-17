@@ -63,7 +63,7 @@ export class EditorComponent implements OnInit {
       title: this.storyForm.value.title,
       content: this.storyForm.value.content
     };
-    this.storiesService.createStory(story);
+    this.storiesService.addStory(story);
   }
 
   private resetForm() {
