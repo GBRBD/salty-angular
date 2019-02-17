@@ -2,14 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditorComponent } from './editor.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import {
-  AbstractControl,
-  ReactiveFormsModule,
-  FormBuilder
-} from '@angular/forms';
+import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { StoriesService } from '../shared/services/stories.service';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('EditorComponent', () => {
