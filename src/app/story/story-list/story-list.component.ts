@@ -8,14 +8,7 @@ import { MatIconRegistry } from '@angular/material';
   styleUrls: ['./story-list.component.scss']
 })
 export class StoryListComponent implements OnInit {
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    iconRegistry.addSvgIcon(
-      'thumbs-up',
-      sanitizer.bypassSecurityTrustResourceUrl(
-        'assets/img/examples/thumbup-icon.svg'
-      )
-    );
-  }
+  constructor() {}
 
   ngOnInit() {}
 }
