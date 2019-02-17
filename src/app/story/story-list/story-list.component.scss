@@ -1,5 +1,4 @@
 mat-card {
-  max-width: 700px;
   margin: 1rem;
 
   .example-card {
@@ -13,12 +12,15 @@ mat-card {
 
   mat-card-actions {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 
     button {
       padding: 0;
       margin: 0;
       min-width: 40px;
+    }
+    .comments {
+      margin-right: 1rem;
     }
   }
 }
