@@ -11,7 +11,7 @@ export class StoriesService {
 
   addStory(story: Story) {
     this.http
-      .post<Story>('http://localhost:3000/api/v1/story', story)
+      .post<Story>('http://localhost:3000/api/v1/stories/add', story)
       .subscribe(() => {
         this.router.navigate(['/']);
       });
