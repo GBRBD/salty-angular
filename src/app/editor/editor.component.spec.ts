@@ -8,6 +8,9 @@ import {
   FormBuilder
 } from '@angular/forms';
 import { StoriesService } from '../shared/services/stories.service';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('EditorComponent', () => {
   let component: EditorComponent;
@@ -22,7 +25,7 @@ describe('EditorComponent', () => {
     // const spy = jasmine.createSpyObj('StoriesService', ['createStory']);
 
     TestBed.configureTestingModule({
-      imports: [SharedModule, ReactiveFormsModule],
+      imports: [SharedModule, ReactiveFormsModule, RouterTestingModule],
       declarations: [EditorComponent]
       // providers: [{ provide: StoriesService, useValue: spy }]
     }).compileComponents();
