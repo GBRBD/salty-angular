@@ -1,5 +1,11 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span>{{ title }}</span>
+    <a mat-flat-button color="primary" routerLink="/"
+      ><mat-icon>whatshot</mat-icon>{{ title }}</a
+    >
+    <span class="spacer"></span>
+    <a mat-flat-button color="primary" routerLink="/stories/add"
+      >Create Story</a
+    >
   </mat-toolbar-row>
 </mat-toolbar>

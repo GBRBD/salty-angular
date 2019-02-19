@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AngularMaterialModule } from './angular-material.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [],
@@ -13,7 +14,8 @@ import { AngularMaterialModule } from './angular-material.module';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     AngularMaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule
   ]
 })
 export class SharedModule {}
