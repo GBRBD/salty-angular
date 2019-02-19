@@ -8,20 +8,16 @@ import {
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Story } from '../models/story.model';
-import { Router } from '@angular/router';
 
 describe('StoriesService', () => {
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
   let storiesService: StoriesService;
-  const router = {
-    navigate: jasmine.createSpy('navigate')
-  };
 
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, RouterTestingModule],
-      providers: [StoriesService, { provide: Router, useValue: router }]
+      providers: [StoriesService]
     })
   );
 
@@ -41,16 +37,50 @@ describe('StoriesService', () => {
   });
 
   describe('#addStory', () => {
-    it('should have made a POST request', () => {
+    it('should make a POST request', () => {
       const story: Story = { title: 'Test Title', content: 'Test Content' };
-      storiesService.addStory(story);
-
+      storiesService.addStory(story).subscribe();
       // HeroService should have made one request to PUT hero
       const req = httpTestingController.expectOne(
         'http://localhost:3000/api/v1/stories/add'
       );
       expect(req.request.method).toEqual('POST');
       expect(req.request.body).toEqual(story);
+    });
+  });
+
+  describe('#getStories', () => {
+    let expectedStories: Story[];
+
+    beforeEach(() => {
+      storiesService = TestBed.get(StoriesService);
+
+      expectedStories = [
+        { title: 'Title 1', content: 'Content 1' },
+        { title: 'Title 2', content: 'Content 2' }
+      ] as Story[];
+    });
+
+    it('should make a GET request', () => {
+      storiesService
+        .getStories()
+        .subscribe(
+          stories =>
+            expect(stories).toEqual(
+              expectedStories,
+              'should return expected stories'
+            ),
+          fail
+        );
+
+      // HeroService should have made one request to GET heroes from expected URL
+      const req = httpTestingController.expectOne(
+        'http://localhost:3000/api/v1/stories'
+      );
+      expect(req.request.method).toEqual('GET');
+
+      // Respond with the mock heroes
+      req.flush(expectedStories);
     });
   });
 });

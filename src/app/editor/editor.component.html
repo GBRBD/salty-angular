@@ -12,18 +12,12 @@
         <input matInput placeholder="Title" formControlName="title" />
         <mat-error
           class="title"
-          *ngIf="
-            storyForm.controls.title.touched &&
-            !!storyForm.controls.title.errors?.required
-          "
+          *ngIf="!!storyForm.controls.title.errors?.required"
           >{{ errorMessages.emptyTitleError }}</mat-error
         >
         <mat-error
           class="title"
-          *ngIf="
-            storyForm.controls.title.touched &&
-            !!storyForm.controls.title.errors?.maxlength
-          "
+          *ngIf="!!storyForm.controls.title.errors?.maxlength"
           >{{ errorMessages.tooLongTitleError }}</mat-error
         >
       </mat-form-field>
@@ -35,18 +29,12 @@
         ></textarea>
         <mat-error
           class="content"
-          *ngIf="
-            storyForm.controls.content.touched &&
-            !!storyForm.controls.content.errors?.required
-          "
+          *ngIf="!!storyForm.controls.content.errors?.required"
           >{{ errorMessages.emptyContentError }}
         </mat-error>
         <mat-error
           class="content"
-          *ngIf="
-            storyForm.controls.content.touched &&
-            !!storyForm.controls.content.errors?.maxlength
-          "
+          *ngIf="!!storyForm.controls.content.errors?.maxlength"
           >{{ errorMessages.tooLongContentError }}
         </mat-error>
       </mat-form-field>

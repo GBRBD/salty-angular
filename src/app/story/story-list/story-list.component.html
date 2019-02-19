@@ -1,24 +1,16 @@
-<a href="">
-  <mat-card class="example-card" *ngFor="let number of [0, 1, 2, 3, 4]">
+<mat-card class="example-card" *ngFor="let story of (stories$ | async)">
+  <a href="">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title
-        ><a href="">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
+        ><a href="">{{ story.title }}</a>
       </mat-card-title>
       <mat-card-subtitle><a>Test Elek</a> · <a>2h</a></mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut
-        congue est. Integer sit amet porttitor ex. Proin tristique vehicula
-        ante. Aliquam accumsan eleifend est at suscipit. Quisque ut rutrum
-        lectus. Etiam eu magna id massa suscipit vehicula vitae at nunc.
-        Praesent in pharetra dui, in aliquam sapien. Duis facilisis euismod enim
-        id ullamcorper. Duis eros velit, tristique sed ex a, pellentesque
-        lobortis purus. Nunc metus mauris, imperdiet vitae tincidunt a, feugiat
-        a neque. Fusce non ante mauris. Aenean non nibh in est semper lobortis
-        eu et felis.
+        {{ story.content }}
       </p>
     </mat-card-content>
     <mat-card-actions>
@@ -35,5 +27,5 @@
         <mat-icon>comment</mat-icon>
       </button>
     </mat-card-actions>
-  </mat-card>
-</a>
+  </a>
+</mat-card>

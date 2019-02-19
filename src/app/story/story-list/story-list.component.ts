@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Story } from 'src/app/shared/models/story.model';
+import { StoriesService } from 'src/app/shared/services/stories.service';
 
 @Component({
   selector: 'app-story-list',
@@ -6,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./story-list.component.scss']
 })
 export class StoryListComponent implements OnInit {
-  constructor() {}
+  stories$: Observable<Story[]>;
 
-  ngOnInit() {}
+  constructor(public storiesService: StoriesService) {}
+
+  ngOnInit() {
+    this.stories$ = this.storiesService.getStories();
+  }
 }

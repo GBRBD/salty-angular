@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { StoriesService } from '../shared/services/stories.service';
 import { Story } from '../shared/models/story.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-editor',
@@ -23,7 +24,11 @@ export class EditorComponent implements OnInit {
     tooLongContentError: 'Story is too long! Max 10000 character!'
   };
 
-  constructor(private fb: FormBuilder, public storiesService: StoriesService) {}
+  constructor(
+    private fb: FormBuilder,
+    public storiesService: StoriesService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.initializeForm();
@@ -63,7 +68,9 @@ export class EditorComponent implements OnInit {
       title: this.storyForm.value.title,
       content: this.storyForm.value.content
     };
-    this.storiesService.addStory(story);
+    this.storiesService.addStory(story).subscribe(() => {
+      this.router.navigate(['/']);
+    });
   }
 
   private resetForm() {
