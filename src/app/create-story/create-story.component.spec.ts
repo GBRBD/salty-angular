@@ -1,11 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { SharedModule } from 'src/app/shared/shared.module';
 import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
-import { StoriesService } from '../shared/services/stories.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
+
+import { SharedModule } from 'src/app/shared/shared.module';
 import { CreateStoryComponent } from './create-story.component';
+import { StoriesService } from '../shared/services/stories.service';
 
 const longStringMaker = (numberOfRepeats: number): string => {
   return 'x'.repeat(numberOfRepeats);
@@ -42,12 +42,12 @@ describe('CreateStoryComponent', () => {
     fixture.detectChanges();
     createStoryElement = fixture.nativeElement;
     errors = {};
-    title = component.storyForm.controls.title;
-    content = component.storyForm.controls.content;
+    title = component.createForm.controls.title;
+    content = component.createForm.controls.content;
   });
 
   afterEach(() => {
-    component.storyForm.reset();
+    component.createForm.reset();
     component.formDirective.resetForm();
     fixture.detectChanges();
   });
@@ -58,11 +58,11 @@ describe('CreateStoryComponent', () => {
 
   describe('Story Form', () => {
     it('should be invalid when empty', () => {
-      expect(component.storyForm.valid).toBeFalsy();
+      expect(component.createForm.valid).toBeFalsy();
     });
 
     it('should be defined after Angular calls ngOnInit', () => {
-      expect(component.storyForm).toBeDefined();
+      expect(component.createForm).toBeDefined();
     });
 
     // it('should submit form when form is valid ', async () => {

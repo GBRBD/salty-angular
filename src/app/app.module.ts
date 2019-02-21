@@ -9,6 +9,7 @@ import { CoreModule } from './core/core.module';
 
 import { StoryModule } from './story/story.module';
 import { CreateStoryModule } from './create-story/create-story.module';
+import { EditStoryModule } from './edit-story/edit-story.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +19,8 @@ import { CreateStoryModule } from './create-story/create-story.module';
     SharedModule,
     CoreModule,
     StoryModule,
-    CreateStoryModule
+    CreateStoryModule,
+    EditStoryModule
   ],
   providers: [],
   bootstrap: [AppComponent]

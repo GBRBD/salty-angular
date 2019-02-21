@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 })
 export class CreateStoryComponent implements OnInit {
   @ViewChild('formDirective') formDirective: FormGroupDirective;
-  storyForm: FormGroup;
+  createForm: FormGroup;
   errorMessages = {
     emptyTitleError: 'Please enter a story title!',
     tooLongTitleError: 'Title is too long! Max 140 character!',
@@ -40,7 +40,7 @@ export class CreateStoryComponent implements OnInit {
   }
 
   private initializeForm() {
-    this.storyForm = this.fb.group({
+    this.createForm = this.fb.group({
       title: [
         '',
         [
@@ -61,12 +61,12 @@ export class CreateStoryComponent implements OnInit {
   }
 
   private submitForm() {
-    if (this.storyForm.invalid) {
+    if (this.createForm.invalid) {
       return;
     }
     const story: Story = {
-      title: this.storyForm.value.title,
-      content: this.storyForm.value.content
+      title: this.createForm.value.title,
+      content: this.createForm.value.content
     };
     this.storiesService.addStory(story).subscribe(() => {
       this.router.navigate(['/']);
@@ -74,7 +74,7 @@ export class CreateStoryComponent implements OnInit {
   }
 
   private resetForm() {
-    this.storyForm.reset();
+    this.createForm.reset();
     this.formDirective.resetForm();
   }
 }
