@@ -6,7 +6,7 @@ import { StoryListComponent } from './story/story-list/story-list.component';
 
 const routes: Routes = [
   { path: '', component: StoryListComponent },
-  { path: 'stories/add', component: EditorComponent }
+  { path: 's/create', component: EditorComponent }
 ];
 
 @NgModule({
