@@ -10,11 +10,11 @@ import { Story } from '../shared/models/story.model';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-editor',
-  templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.scss']
+  selector: 'app-create-story',
+  templateUrl: './create-story.component.html',
+  styleUrls: ['./create-story.component.scss']
 })
-export class EditorComponent implements OnInit {
+export class CreateStoryComponent implements OnInit {
   @ViewChild('formDirective') formDirective: FormGroupDirective;
   storyForm: FormGroup;
   errorMessages = {

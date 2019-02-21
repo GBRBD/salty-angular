@@ -1,22 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditorComponent } from './editor.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { StoriesService } from '../shared/services/stories.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
+import { CreateStoryComponent } from './create-story.component';
 
 const longStringMaker = (numberOfRepeats: number): string => {
   return 'x'.repeat(numberOfRepeats);
 };
 
-describe('EditorComponent', () => {
-  let component: EditorComponent;
-  let fixture: ComponentFixture<EditorComponent>;
+describe('CreateStoryComponent', () => {
+  let component: CreateStoryComponent;
+  let fixture: ComponentFixture<CreateStoryComponent>;
   let title: AbstractControl;
   let content: AbstractControl;
-  let editorElement: HTMLElement;
+  let createStoryElement: HTMLElement;
   let storiesServiceSpy: StoriesService;
   let errors;
 
@@ -29,18 +29,18 @@ describe('EditorComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [SharedModule, ReactiveFormsModule, RouterTestingModule],
-      declarations: [EditorComponent],
+      declarations: [CreateStoryComponent],
       // providers: [{ provide: StoriesService, useValue: spy }]
       providers: [StoriesService, { provide: Router, useValue: router }]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditorComponent);
+    fixture = TestBed.createComponent(CreateStoryComponent);
     component = fixture.componentInstance;
     storiesServiceSpy = TestBed.get(StoriesService);
     fixture.detectChanges();
-    editorElement = fixture.nativeElement;
+    createStoryElement = fixture.nativeElement;
     errors = {};
     title = component.storyForm.controls.title;
     content = component.storyForm.controls.content;
@@ -82,7 +82,7 @@ describe('EditorComponent', () => {
     });
 
     it('Submit button should be disabled when form is invalid', () => {
-      const submitButton = editorElement.querySelector('button');
+      const submitButton = createStoryElement.querySelector('button');
       expect(submitButton.disabled).toBeTruthy();
     });
 
@@ -117,7 +117,9 @@ describe('EditorComponent', () => {
         title.setValue('');
         title.markAsTouched();
         fixture.detectChanges();
-        const errorMessage = editorElement.querySelector('mat-error.title');
+        const errorMessage = createStoryElement.querySelector(
+          'mat-error.title'
+        );
         expect(errorMessage.textContent).toContain(
           component.errorMessages.emptyTitleError
         );
@@ -128,7 +130,9 @@ describe('EditorComponent', () => {
         title.setValue(longString);
         title.markAsTouched();
         fixture.detectChanges();
-        const errorMessage = editorElement.querySelector('mat-error.title');
+        const errorMessage = createStoryElement.querySelector(
+          'mat-error.title'
+        );
         expect(errorMessage.textContent).toContain(
           component.errorMessages.tooLongTitleError
         );
@@ -164,7 +168,9 @@ describe('EditorComponent', () => {
         content.setValue('');
         content.markAsTouched();
         fixture.detectChanges();
-        const errorMessage = editorElement.querySelector('mat-error.content');
+        const errorMessage = createStoryElement.querySelector(
+          'mat-error.content'
+        );
         expect(errorMessage.textContent).toContain(
           component.errorMessages.emptyContentError
         );
@@ -175,7 +181,9 @@ describe('EditorComponent', () => {
         content.setValue(longString);
         content.markAsTouched();
         fixture.detectChanges();
-        const errorMessage = editorElement.querySelector('mat-error.content');
+        const errorMessage = createStoryElement.querySelector(
+          'mat-error.content'
+        );
         expect(errorMessage.textContent).toContain(
           component.errorMessages.tooLongContentError
         );

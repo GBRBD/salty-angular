@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { EditorComponent } from './editor/editor.component';
 import { StoryListComponent } from './story/story-list/story-list.component';
+import { CreateStoryComponent } from './create-story/create-story.component';
 
 const routes: Routes = [
   { path: '', component: StoryListComponent },
-  { path: 's/create', component: EditorComponent }
+  { path: 's/create', component: CreateStoryComponent }
 ];
 
 @NgModule({
