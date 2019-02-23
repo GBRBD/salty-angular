@@ -9,6 +9,8 @@ import { Story } from '../shared/models/story.model';
 describe('EditStoryComponent', () => {
   let component: EditStoryComponent;
   let fixture: ComponentFixture<EditStoryComponent>;
+  let editStoryElement: HTMLElement;
+
   const testStory: Story = {
     _id: '5c71879806983d1e0c9001b7',
     title: 'test title',
@@ -26,9 +28,24 @@ describe('EditStoryComponent', () => {
     component = fixture.componentInstance;
     component.story = testStory;
     fixture.detectChanges();
+    editStoryElement = fixture.nativeElement;
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should fill out form with test title', () => {
+    const titleInput: HTMLInputElement = editStoryElement.querySelector(
+      'input[formControlName="title"]'
+    );
+    expect(titleInput.value).toBe(testStory.title);
+  });
+
+  it('should fill out form with test content', () => {
+    const contentInput: HTMLTextAreaElement = editStoryElement.querySelector(
+      'textarea[formControlName="content"]'
+    );
+    expect(contentInput.value).toBe(testStory.content);
   });
 });

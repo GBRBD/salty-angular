@@ -65,14 +65,16 @@ describe('CreateStoryComponent', () => {
       expect(component.createForm).toBeDefined();
     });
 
-    // it('should submit form when form is valid ', async () => {
-    //   title.setValue('xxx');
-    //   content.setValue('xxxx');
-    //   spyOn(storiesServiceSpy, 'addStory');
-    //   component.onSubmit();
-    //   fixture.detectChanges();
-    //   expect(storiesServiceSpy.addStory).toHaveBeenCalled();
-    // });
+    it('should submit form when form is valid ', () => {
+      title.setValue('xxx');
+      content.setValue('xxxx');
+      spyOn(storiesServiceSpy, 'createStory').and.returnValue({
+        subscribe: () => {}
+      });
+      component.onSubmit();
+      fixture.detectChanges();
+      expect(storiesServiceSpy.createStory).toHaveBeenCalled();
+    });
 
     it('should not submit form when form is invalid ', () => {
       spyOn(storiesServiceSpy, 'createStory');
