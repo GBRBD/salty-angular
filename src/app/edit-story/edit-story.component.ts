@@ -6,9 +6,8 @@ import {
   Validators
 } from '@angular/forms';
 import { StoriesService } from '../shared/services/stories.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Story } from '../shared/models/story.model';
-import { createScope } from '@angular/core/src/profile/wtf_impl';
 
 @Component({
   selector: 'app-edit-story',
@@ -36,7 +35,6 @@ export class EditStoryComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.story);
     this.initializeForm();
   }
 
@@ -65,14 +63,4 @@ export class EditStoryComponent implements OnInit {
       ]
     });
   }
-
-  // private getStoryData() {
-  //   const storyId = this.activatedRoute.snapshot.params.id;
-  //   this.storiesService.getStory(storyId).subscribe((storyData: Story) => {
-  //     this.editForm.setValue({
-  //       title: storyData.title,
-  //       content: storyData.content
-  //     });
-  //   });
-  // }
 }
