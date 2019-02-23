@@ -6,7 +6,9 @@ import {
   Validators
 } from '@angular/forms';
 import { StoriesService } from '../shared/services/stories.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Story } from '../shared/models/story.model';
+import { createScope } from '@angular/core/src/profile/wtf_impl';
 
 @Component({
   selector: 'app-edit-story',
@@ -22,26 +24,31 @@ export class EditStoryComponent implements OnInit {
     emptyContentError: 'Please write a story!',
     tooLongContentError: 'Story is too long! Max 10000 character!'
   };
+
+  story: Story;
+
   constructor(
     private fb: FormBuilder,
     public storiesService: StoriesService,
-    private router: Router
-  ) {}
+    public activatedRoute: ActivatedRoute
+  ) {
+    this.story = this.activatedRoute.snapshot.data.story;
+  }
 
   ngOnInit() {
+    console.log(this.story);
     this.initializeForm();
   }
 
   onSubmit() {
     // this.submitForm();
     // this.resetForm();
-    console.log('works');
   }
 
   private initializeForm() {
     this.editForm = this.fb.group({
       title: [
-        '',
+        this.story.title,
         [
           Validators.required,
           Validators.minLength(3),
@@ -49,7 +56,7 @@ export class EditStoryComponent implements OnInit {
         ]
       ],
       content: [
-        '',
+        this.story.content,
         [
           Validators.required,
           Validators.minLength(3),
@@ -58,4 +65,14 @@ export class EditStoryComponent implements OnInit {
       ]
     });
   }
+
+  // private getStoryData() {
+  //   const storyId = this.activatedRoute.snapshot.params.id;
+  //   this.storiesService.getStory(storyId).subscribe((storyData: Story) => {
+  //     this.editForm.setValue({
+  //       title: storyData.title,
+  //       content: storyData.content
+  //     });
+  //   });
+  // }
 }
