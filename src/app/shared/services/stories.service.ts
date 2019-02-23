@@ -10,7 +10,7 @@ export class StoriesService {
 
   createStory(story: Story) {
     return this.http.post<Story>(
-      'http://localhost:3000/api/v1/stories/add',
+      'http://localhost:3000/api/v1/stories/create',
       story
     );
   }

@@ -42,7 +42,7 @@ describe('StoriesService', () => {
       storiesService.createStory(story).subscribe();
       // HeroService should have made one request to PUT hero
       const req = httpTestingController.expectOne(
-        'http://localhost:3000/api/v1/stories/add'
+        'http://localhost:3000/api/v1/stories/create'
       );
       expect(req.request.method).toEqual('POST');
       expect(req.request.body).toEqual(story);
