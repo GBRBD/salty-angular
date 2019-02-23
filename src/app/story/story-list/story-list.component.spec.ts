@@ -6,6 +6,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { StoryListComponent } from './story-list.component';
 import { StoriesService } from 'src/app/shared/services/stories.service';
 import { Story } from 'src/app/shared/models/story.model';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('StoryListComponent', () => {
   let component: StoryListComponent;
@@ -25,7 +26,7 @@ describe('StoryListComponent', () => {
     getStoriesSpy = storiesService.getStories.and.returnValue(of(testStory));
 
     TestBed.configureTestingModule({
-      imports: [SharedModule],
+      imports: [SharedModule, RouterTestingModule],
       declarations: [StoryListComponent],
       providers: [{ provide: StoriesService, useValue: storiesService }]
     }).compileComponents();
