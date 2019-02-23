@@ -75,10 +75,10 @@ describe('CreateStoryComponent', () => {
     // });
 
     it('should not submit form when form is invalid ', () => {
-      spyOn(storiesServiceSpy, 'addStory');
+      spyOn(storiesServiceSpy, 'createStory');
       component.onSubmit();
       fixture.detectChanges();
-      expect(storiesServiceSpy.addStory).not.toHaveBeenCalled();
+      expect(storiesServiceSpy.createStory).not.toHaveBeenCalled();
     });
 
     it('Submit button should be disabled when form is invalid', () => {

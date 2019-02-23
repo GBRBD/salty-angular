@@ -39,13 +39,48 @@ describe('StoriesService', () => {
   describe('#addStory', () => {
     it('should make a POST request', () => {
       const story: Story = { title: 'Test Title', content: 'Test Content' };
-      storiesService.addStory(story).subscribe();
+      storiesService.createStory(story).subscribe();
       // HeroService should have made one request to PUT hero
       const req = httpTestingController.expectOne(
         'http://localhost:3000/api/v1/stories/add'
       );
       expect(req.request.method).toEqual('POST');
       expect(req.request.body).toEqual(story);
+    });
+  });
+
+  describe('#getStory', () => {
+    let expectedStory: Story;
+
+    beforeEach(() => {
+      storiesService = TestBed.get(StoriesService);
+
+      expectedStory = {
+        _id: '5c7167898089a63c94681178',
+        title: 'Title 1',
+        content: 'Content 1'
+      };
+    });
+
+    it('should make a GET request', () => {
+      const id = '5c7167898089a63c94681178';
+      storiesService
+        .getStory(id)
+        .subscribe(
+          story =>
+            expect(story).toEqual(
+              expectedStory,
+              'should return expected story'
+            ),
+          fail
+        );
+
+      const req = httpTestingController.expectOne(
+        'http://localhost:3000/api/v1/stories/5c7167898089a63c94681178'
+      );
+      expect(req.request.method).toEqual('GET');
+
+      req.flush(expectedStory);
     });
   });
 

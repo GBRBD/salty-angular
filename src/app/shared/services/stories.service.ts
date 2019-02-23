@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class StoriesService {
   constructor(private http: HttpClient) {}
 
-  addStory(story: Story) {
+  createStory(story: Story) {
     return this.http.post<Story>(
       'http://localhost:3000/api/v1/stories/add',
       story
@@ -17,5 +17,9 @@ export class StoriesService {
 
   getStories() {
     return this.http.get<Story[]>('http://localhost:3000/api/v1/stories');
+  }
+
+  getStory(id: string) {
+    return this.http.get<Story>(`http://localhost:3000/api/v1/stories/${id}`);
   }
 }

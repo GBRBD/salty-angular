@@ -68,7 +68,7 @@ export class CreateStoryComponent implements OnInit {
       title: this.createForm.value.title,
       content: this.createForm.value.content
     };
-    this.storiesService.addStory(story).subscribe(() => {
+    this.storiesService.createStory(story).subscribe(() => {
       this.router.navigate(['/']);
     });
   }
