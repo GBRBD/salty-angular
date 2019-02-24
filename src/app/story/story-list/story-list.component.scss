@@ -9,6 +9,17 @@ mat-card {
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     background-size: cover;
   }
+  mat-card-title {
+    a {
+      word-break: break-word;
+    }
+  }
+
+  mat-card-content {
+    p {
+      word-break: break-word;
+    }
+  }
 
   mat-card-actions {
     display: flex;

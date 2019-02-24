@@ -8,8 +8,17 @@
       #formDirective="ngForm"
       (ngSubmit)="onSubmit()"
     >
-      <mat-form-field>
-        <input matInput placeholder="Title" formControlName="title" />
+      <mat-form-field hintLabel="Max 140 characters">
+        <input
+          matInput
+          placeholder="Title"
+          formControlName="title"
+          maxlength="140"
+          required
+        />
+        <mat-hint align="end"
+          >{{ editForm.controls.title.value?.length || 0 }}/140</mat-hint
+        >
         <mat-error
           class="title"
           *ngIf="!!editForm.controls.title.errors?.required"
@@ -21,12 +30,17 @@
           >{{ errorMessages.tooLongTitleError }}</mat-error
         >
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field hintLabel="Max 10000 characters">
         <textarea
           matInput
           placeholder="Enter your story here!"
           formControlName="content"
+          maxlength="10000"
+          required
         ></textarea>
+        <mat-hint align="end"
+          >{{ editForm.controls.content.value?.length || 0 }}/10000</mat-hint
+        >
         <mat-error
           class="content"
           *ngIf="!!editForm.controls.content.errors?.required"
@@ -38,17 +52,19 @@
           >{{ errorMessages.tooLongContentError }}
         </mat-error>
       </mat-form-field>
-      <button
-        mat-raised-button
-        color="primary"
-        type="submit"
-        [disabled]="!editForm.valid"
-      >
-        Save
-      </button>
-      <a class="delete" mat-raised-button color="warn" (click)="onDelete()"
-        >Delete</a
-      >
+      <div class="actions">
+        <a class="delete" mat-raised-button color="warn" (click)="onDelete()"
+          >Delete</a
+        >
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="!editForm.valid"
+        >
+          Save
+        </button>
+      </div>
     </form>
   </mat-card-content>
 </mat-card>
