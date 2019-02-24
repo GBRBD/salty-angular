@@ -41,23 +41,27 @@ export class CreateStoryComponent implements OnInit {
 
   private initializeForm() {
     this.createForm = this.fb.group({
-      title: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(140)
-        ]
-      ],
-      content: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(10000)
-        ]
-      ]
+      title: this.initTitleField(),
+      content: this.initContentField()
     });
+  }
+
+  private initContentField(): any {
+    return [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(10000)
+      ]
+    ];
+  }
+
+  private initTitleField(): any {
+    return [
+      '',
+      [Validators.required, Validators.minLength(3), Validators.maxLength(140)]
+    ];
   }
 
   private submitForm() {

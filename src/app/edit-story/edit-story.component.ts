@@ -32,7 +32,7 @@ export class EditStoryComponent implements OnInit {
     public activatedRoute: ActivatedRoute,
     private router: Router
   ) {
-    this.story = this.activatedRoute.snapshot.data.story;
+    this.resolveStory();
   }
 
   ngOnInit() {
@@ -45,30 +45,36 @@ export class EditStoryComponent implements OnInit {
   }
 
   onDelete() {
-    this.storiesService.deleteStory(this.story).subscribe(() => {
-      this.router.navigate(['/']);
-    });
+    this.deleteStory();
+  }
+
+  private resolveStory() {
+    this.story = this.activatedRoute.snapshot.data.story;
   }
 
   private initializeForm() {
     this.editForm = this.fb.group({
-      title: [
-        this.story.title,
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(140)
-        ]
-      ],
-      content: [
-        this.story.content,
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(10000)
-        ]
-      ]
+      title: this.initTitleField(),
+      content: this.initContentField()
     });
+  }
+
+  private initContentField(): any {
+    return [
+      this.story.content,
+      [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(10000)
+      ]
+    ];
+  }
+
+  private initTitleField(): any {
+    return [
+      this.story.title,
+      [Validators.required, Validators.minLength(3), Validators.maxLength(140)]
+    ];
   }
 
   private submitForm() {
@@ -88,5 +94,11 @@ export class EditStoryComponent implements OnInit {
   private resetForm() {
     this.editForm.reset();
     this.formDirective.resetForm();
+  }
+
+  private deleteStory() {
+    this.storiesService.deleteStory(this.story).subscribe(() => {
+      this.router.navigate(['/']);
+    });
   }
 }
