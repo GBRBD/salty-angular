@@ -44,6 +44,12 @@ export class EditStoryComponent implements OnInit {
     this.resetForm();
   }
 
+  onDelete() {
+    this.storiesService.deleteStory(this.story).subscribe(() => {
+      this.router.navigate(['/']);
+    });
+  }
+
   private initializeForm() {
     this.editForm = this.fb.group({
       title: [

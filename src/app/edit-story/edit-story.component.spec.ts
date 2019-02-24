@@ -88,9 +88,22 @@ describe('EditStoryComponent', () => {
     expect(submitButton.disabled).toBeTruthy();
   });
 
-  it(`should have a button with test 'edit'`, () => {
+  it(`should have a button with test 'save'`, () => {
     const submitButton = editStoryElement.querySelector('button');
-    expect(submitButton.textContent).toMatch(/edit/i);
+    expect(submitButton.textContent).toMatch(/save/i);
+  });
+
+  it(`should have a button with test 'delete'`, () => {
+    const deleteButton = editStoryElement.querySelector('.delete');
+    expect(deleteButton.textContent).toMatch(/delete/i);
+  });
+
+  it('should delete story when clicked ', () => {
+    spyOn(storiesServiceSpy, 'deleteStory').and.returnValue({
+      subscribe: () => {}
+    });
+    component.onDelete();
+    expect(storiesServiceSpy.deleteStory).toHaveBeenCalled();
   });
 
   describe('Title Field', () => {

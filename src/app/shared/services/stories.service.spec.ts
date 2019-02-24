@@ -5,7 +5,7 @@ import {
   HttpClientTestingModule,
   HttpTestingController
 } from '@angular/common/http/testing';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Story } from '../models/story.model';
 
@@ -40,12 +40,28 @@ describe('StoriesService', () => {
     it('should make a POST request', () => {
       const story: Story = { title: 'Test Title', content: 'Test Content' };
       storiesService.createStory(story).subscribe();
-      // HeroService should have made one request to PUT hero
       const req = httpTestingController.expectOne(
         'http://localhost:3000/api/v1/stories/create'
       );
       expect(req.request.method).toEqual('POST');
       expect(req.request.body).toEqual(story);
+    });
+  });
+
+  describe('#deleteStory', () => {
+    it('should make a POST request', () => {
+      const expectedStory = {
+        _id: '5c7167898089a63c94681178',
+        title: 'Title 1',
+        content: 'Content 1'
+      };
+
+      storiesService.deleteStory(expectedStory).subscribe();
+      const req = httpTestingController.expectOne(
+        'http://localhost:3000/api/v1/stories/delete'
+      );
+      expect(req.request.method).toEqual('POST');
+      expect(req.request.body).toEqual(expectedStory);
     });
   });
 
@@ -58,7 +74,6 @@ describe('StoriesService', () => {
       };
 
       storiesService.editStory(story).subscribe();
-      // HeroService should have made one request to PUT hero
       const req = httpTestingController.expectOne(
         'http://localhost:3000/api/v1/stories/edit'
       );
@@ -126,13 +141,11 @@ describe('StoriesService', () => {
           fail
         );
 
-      // HeroService should have made one request to GET heroes from expected URL
       const req = httpTestingController.expectOne(
         'http://localhost:3000/api/v1/stories'
       );
       expect(req.request.method).toEqual('GET');
 
-      // Respond with the mock heroes
       req.flush(expectedStories);
     });
   });

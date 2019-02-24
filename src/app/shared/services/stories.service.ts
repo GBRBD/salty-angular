@@ -29,4 +29,11 @@ export class StoriesService {
       story
     );
   }
+
+  deleteStory(story: Story) {
+    return this.http.post<Story>(
+      `http://localhost:3000/api/v1/stories/delete`,
+      story
+    );
+  }
 }

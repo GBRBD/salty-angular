@@ -23,12 +23,10 @@ describe('CreateStoryComponent', () => {
   };
 
   beforeEach(async(() => {
-    // const spy = jasmine.createSpyObj('StoriesService', ['addStory']);
-
     TestBed.configureTestingModule({
       imports: [SharedModule, ReactiveFormsModule, RouterTestingModule],
       declarations: [CreateStoryComponent],
-      // providers: [{ provide: StoriesService, useValue: spy }]
+
       providers: [
         StoriesService,
         HelperService,
