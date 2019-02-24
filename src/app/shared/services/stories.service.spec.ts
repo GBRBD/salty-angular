@@ -49,6 +49,24 @@ describe('StoriesService', () => {
     });
   });
 
+  describe('#editStory', () => {
+    it('should make a PUT request', () => {
+      const story: Story = {
+        _id: '5c719d9abf70301be40b1a77',
+        title: 'Test Title',
+        content: 'Test Content'
+      };
+
+      storiesService.editStory(story).subscribe();
+      // HeroService should have made one request to PUT hero
+      const req = httpTestingController.expectOne(
+        'http://localhost:3000/api/v1/stories/edit'
+      );
+      expect(req.request.method).toEqual('PUT');
+      expect(req.request.body).toEqual(story);
+    });
+  });
+
   describe('#getStory', () => {
     let expectedStory: Story;
 

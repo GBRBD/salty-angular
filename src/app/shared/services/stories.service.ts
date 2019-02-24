@@ -22,4 +22,11 @@ export class StoriesService {
   getStory(id: string) {
     return this.http.get<Story>(`http://localhost:3000/api/v1/stories/${id}`);
   }
+
+  editStory(story: Story) {
+    return this.http.put<Story>(
+      'http://localhost:3000/api/v1/stories/edit',
+      story
+    );
+  }
 }

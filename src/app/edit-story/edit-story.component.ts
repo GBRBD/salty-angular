@@ -6,7 +6,7 @@ import {
   Validators
 } from '@angular/forms';
 import { StoriesService } from '../shared/services/stories.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Story } from '../shared/models/story.model';
 
 @Component({
@@ -29,7 +29,8 @@ export class EditStoryComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public storiesService: StoriesService,
-    public activatedRoute: ActivatedRoute
+    public activatedRoute: ActivatedRoute,
+    private router: Router
   ) {
     this.story = this.activatedRoute.snapshot.data.story;
   }
@@ -39,8 +40,8 @@ export class EditStoryComponent implements OnInit {
   }
 
   onSubmit() {
-    // this.submitForm();
-    // this.resetForm();
+    this.submitForm();
+    this.resetForm();
   }
 
   private initializeForm() {
@@ -62,5 +63,24 @@ export class EditStoryComponent implements OnInit {
         ]
       ]
     });
+  }
+
+  private submitForm() {
+    if (this.editForm.invalid) {
+      return;
+    }
+    const story: Story = {
+      _id: this.story._id,
+      title: this.editForm.value.title,
+      content: this.editForm.value.content
+    };
+    this.storiesService.editStory(story).subscribe(() => {
+      this.router.navigate(['/']);
+    });
+  }
+
+  private resetForm() {
+    this.editForm.reset();
+    this.formDirective.resetForm();
   }
 }

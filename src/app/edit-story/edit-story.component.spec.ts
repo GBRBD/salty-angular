@@ -6,11 +6,13 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { EditStoryComponent } from './edit-story.component';
 import { Story } from '../shared/models/story.model';
 import { HelperService } from '../shared/services/helper.service';
+import { StoriesService } from '../shared/services/stories.service';
 
 describe('EditStoryComponent', () => {
   let component: EditStoryComponent;
   let fixture: ComponentFixture<EditStoryComponent>;
   let helperService: HelperService;
+  let storiesServiceSpy: StoriesService;
   let editStoryElement: HTMLElement;
   let title: AbstractControl;
   let content: AbstractControl;
@@ -25,7 +27,7 @@ describe('EditStoryComponent', () => {
     TestBed.configureTestingModule({
       imports: [SharedModule, ReactiveFormsModule, RouterTestingModule],
       declarations: [EditStoryComponent],
-      providers: [HelperService]
+      providers: [HelperService, StoriesService]
     }).compileComponents();
   }));
 
@@ -34,6 +36,7 @@ describe('EditStoryComponent', () => {
     component = fixture.componentInstance;
     component.story = testStory;
     helperService = TestBed.get(HelperService);
+    storiesServiceSpy = TestBed.get(StoriesService);
     fixture.detectChanges();
     editStoryElement = fixture.nativeElement;
     title = component.editForm.controls.title;
@@ -59,23 +62,23 @@ describe('EditStoryComponent', () => {
     expect(contentInput.value).toBe(testStory.content);
   });
 
-  // it('should submit form when form is valid ', () => {
-  //   title.setValue('xxx');
-  //   content.setValue('xxxx');
-  //   spyOn(storiesServiceSpy, 'createStory').and.returnValue({
-  //     subscribe: () => {}
-  //   });
-  //   component.onSubmit();
-  //   fixture.detectChanges();
-  //   expect(storiesServiceSpy.createStory).toHaveBeenCalled();
-  // });
+  it('should submit form when form is valid ', () => {
+    spyOn(storiesServiceSpy, 'editStory').and.returnValue({
+      subscribe: () => {}
+    });
+    component.onSubmit();
+    fixture.detectChanges();
+    expect(storiesServiceSpy.editStory).toHaveBeenCalled();
+  });
 
-  // it('should not submit form when form is invalid ', () => {
-  //   spyOn(storiesServiceSpy, 'createStory');
-  //   component.onSubmit();
-  //   fixture.detectChanges();
-  //   expect(storiesServiceSpy.createStory).not.toHaveBeenCalled();
-  // });
+  it('should not submit form when form is invalid ', () => {
+    spyOn(storiesServiceSpy, 'editStory');
+    title.setValue('');
+    content.setValue('');
+    fixture.detectChanges();
+    component.onSubmit();
+    expect(storiesServiceSpy.editStory).not.toHaveBeenCalled();
+  });
 
   it('Submit button should be disabled when form is invalid', () => {
     title.setValue('');
