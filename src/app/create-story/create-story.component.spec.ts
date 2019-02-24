@@ -6,10 +6,7 @@ import { Router } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CreateStoryComponent } from './create-story.component';
 import { StoriesService } from '../shared/services/stories.service';
-
-const longStringMaker = (numberOfRepeats: number): string => {
-  return 'x'.repeat(numberOfRepeats);
-};
+import { HelperService } from '../shared/services/helper.service';
 
 describe('CreateStoryComponent', () => {
   let component: CreateStoryComponent;
@@ -18,6 +15,7 @@ describe('CreateStoryComponent', () => {
   let content: AbstractControl;
   let createStoryElement: HTMLElement;
   let storiesServiceSpy: StoriesService;
+  let helperService: HelperService;
   let errors;
 
   const router = {
@@ -31,7 +29,11 @@ describe('CreateStoryComponent', () => {
       imports: [SharedModule, ReactiveFormsModule, RouterTestingModule],
       declarations: [CreateStoryComponent],
       // providers: [{ provide: StoriesService, useValue: spy }]
-      providers: [StoriesService, { provide: Router, useValue: router }]
+      providers: [
+        StoriesService,
+        HelperService,
+        { provide: Router, useValue: router }
+      ]
     }).compileComponents();
   }));
 
@@ -39,6 +41,7 @@ describe('CreateStoryComponent', () => {
     fixture = TestBed.createComponent(CreateStoryComponent);
     component = fixture.componentInstance;
     storiesServiceSpy = TestBed.get(StoriesService);
+    helperService = TestBed.get(HelperService);
     fixture.detectChanges();
     createStoryElement = fixture.nativeElement;
     errors = {};
@@ -110,7 +113,7 @@ describe('CreateStoryComponent', () => {
       });
 
       it('should be invalid when input length is greater than 140 character', () => {
-        const longString = longStringMaker(141);
+        const longString = helperService.longStringMaker(141);
         title.setValue(longString);
         expect(title.valid).toBeFalsy();
       });
@@ -128,7 +131,7 @@ describe('CreateStoryComponent', () => {
       });
 
       it('should show error messages when title input too long', () => {
-        const longString = longStringMaker(141);
+        const longString = helperService.longStringMaker(141);
         title.setValue(longString);
         title.markAsTouched();
         fixture.detectChanges();
@@ -161,7 +164,7 @@ describe('CreateStoryComponent', () => {
       });
 
       it('should be invalid when input length is greater than 10000 character', () => {
-        const longString = longStringMaker(10001);
+        const longString = helperService.longStringMaker(10001);
         content.setValue(longString);
         expect(content.valid).toBeFalsy();
       });
@@ -179,7 +182,7 @@ describe('CreateStoryComponent', () => {
       });
 
       it('should show error messages when content input is too long', () => {
-        const longString = longStringMaker(10001);
+        const longString = helperService.longStringMaker(10001);
         content.setValue(longString);
         content.markAsTouched();
         fixture.detectChanges();
