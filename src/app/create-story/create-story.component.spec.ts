@@ -86,6 +86,11 @@ describe('CreateStoryComponent', () => {
       expect(storiesServiceSpy.createStory).not.toHaveBeenCalled();
     });
 
+    it(`should have a button with test 'edit'`, () => {
+      const submitButton = createStoryElement.querySelector('button');
+      expect(submitButton.textContent).toMatch(/create/i);
+    });
+
     it('Submit button should be disabled when form is invalid', () => {
       const submitButton = createStoryElement.querySelector('button');
       expect(submitButton.disabled).toBeTruthy();

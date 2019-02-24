@@ -28,7 +28,7 @@ describe('HeaderComponent', () => {
 
   it('should show title in a span tag', () => {
     const toolbarRowSpan = headerElement.querySelector('mat-toolbar-row a');
-    expect(toolbarRowSpan.textContent).toContain('Salty');
-    expect(component.title).toContain('Salty');
+    expect(toolbarRowSpan.textContent).toMatch(/salty/i);
+    expect(component.title).toMatch(/salty/i);
   });
 });

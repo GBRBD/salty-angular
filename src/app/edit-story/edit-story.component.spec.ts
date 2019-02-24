@@ -85,6 +85,11 @@ describe('EditStoryComponent', () => {
     expect(submitButton.disabled).toBeTruthy();
   });
 
+  it(`should have a button with test 'edit'`, () => {
+    const submitButton = editStoryElement.querySelector('button');
+    expect(submitButton.textContent).toMatch(/edit/i);
+  });
+
   describe('Title Field', () => {
     it('should not create title field with empty string', () => {
       expect(title.value).toBeTruthy();
