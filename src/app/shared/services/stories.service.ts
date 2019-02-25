@@ -9,31 +9,22 @@ export class StoriesService {
   constructor(private http: HttpClient) {}
 
   createStory(story: Story) {
-    return this.http.post<Story>(
-      'http://localhost:3000/api/v1/stories/create',
-      story
-    );
+    return this.http.post<Story>('api/v1/stories/create', story);
   }
 
   getStories() {
-    return this.http.get<Story[]>('http://localhost:3000/api/v1/stories');
+    return this.http.get<Story[]>('api/v1/stories');
   }
 
   getStory(id: string) {
-    return this.http.get<Story>(`http://localhost:3000/api/v1/stories/${id}`);
+    return this.http.get<Story>(`api/v1/stories/${id}`);
   }
 
   editStory(story: Story) {
-    return this.http.put<Story>(
-      'http://localhost:3000/api/v1/stories/edit',
-      story
-    );
+    return this.http.put<Story>('api/v1/stories/edit', story);
   }
 
   deleteStory(story: Story) {
-    return this.http.post<Story>(
-      `http://localhost:3000/api/v1/stories/delete`,
-      story
-    );
+    return this.http.post<Story>(`api/v1/stories/delete`, story);
   }
 }

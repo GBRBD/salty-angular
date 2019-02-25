@@ -40,9 +40,7 @@ describe('StoriesService', () => {
     it('should make a POST request', () => {
       const story: Story = { title: 'Test Title', content: 'Test Content' };
       storiesService.createStory(story).subscribe();
-      const req = httpTestingController.expectOne(
-        'http://localhost:3000/api/v1/stories/create'
-      );
+      const req = httpTestingController.expectOne('api/v1/stories/create');
       expect(req.request.method).toEqual('POST');
       expect(req.request.body).toEqual(story);
     });
@@ -57,9 +55,7 @@ describe('StoriesService', () => {
       };
 
       storiesService.deleteStory(expectedStory).subscribe();
-      const req = httpTestingController.expectOne(
-        'http://localhost:3000/api/v1/stories/delete'
-      );
+      const req = httpTestingController.expectOne('api/v1/stories/delete');
       expect(req.request.method).toEqual('POST');
       expect(req.request.body).toEqual(expectedStory);
     });
@@ -74,9 +70,7 @@ describe('StoriesService', () => {
       };
 
       storiesService.editStory(story).subscribe();
-      const req = httpTestingController.expectOne(
-        'http://localhost:3000/api/v1/stories/edit'
-      );
+      const req = httpTestingController.expectOne('api/v1/stories/edit');
       expect(req.request.method).toEqual('PUT');
       expect(req.request.body).toEqual(story);
     });
@@ -109,7 +103,7 @@ describe('StoriesService', () => {
         );
 
       const req = httpTestingController.expectOne(
-        'http://localhost:3000/api/v1/stories/5c7167898089a63c94681178'
+        'api/v1/stories/5c7167898089a63c94681178'
       );
       expect(req.request.method).toEqual('GET');
 
@@ -141,9 +135,7 @@ describe('StoriesService', () => {
           fail
         );
 
-      const req = httpTestingController.expectOne(
-        'http://localhost:3000/api/v1/stories'
-      );
+      const req = httpTestingController.expectOne('api/v1/stories');
       expect(req.request.method).toEqual('GET');
 
       req.flush(expectedStories);
