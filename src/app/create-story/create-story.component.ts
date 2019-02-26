@@ -8,6 +8,7 @@ import {
 import { StoriesService } from '../shared/services/stories.service';
 import { Story } from '../shared/models/story.model';
 import { Router } from '@angular/router';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-create-story',
