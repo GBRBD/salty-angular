@@ -4,7 +4,15 @@
 
 export const environment = {
   production: false,
-  baseApiHref: 'http://localhost:3000/'
+  baseApiHref: 'http://localhost:3000/',
+  firebase: {
+    apiKey: 'AIzaSyBkvU75xlPdss_vsd5CZMr8pc89DNZQI1E',
+    authDomain: 'salty-8f9ae.firebaseapp.com',
+    databaseURL: 'https://salty-8f9ae.firebaseio.com',
+    projectId: 'salty-8f9ae',
+    storageBucket: 'salty-8f9ae.appspot.com',
+    messagingSenderId: '1093609830342'
+  }
 };
 
 /*

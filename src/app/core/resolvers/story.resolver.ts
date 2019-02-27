@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
-import { StoriesService } from '../services/stories.service';
+import { StoriesService } from 'src/app/shared/services/stories.service';
 
 @Injectable({
   providedIn: 'root'

@@ -14,9 +14,10 @@ import { EditStoryModule } from './edit-story/edit-story.module';
 import { ApiInterceptor } from './core/interceptors/api.interceptor';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HeaderComponent],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),

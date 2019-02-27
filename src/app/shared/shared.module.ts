@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularMaterialModule } from './angular-material.module';
 import { RouterModule } from '@angular/router';
 
@@ -15,7 +16,8 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     AngularMaterialModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    AngularFireAuthModule
   ]
 })
 export class SharedModule {}
