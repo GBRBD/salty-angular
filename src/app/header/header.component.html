@@ -9,6 +9,7 @@
       *ngIf="(authService.getUserState | async); else guestNav"
     >
       <a mat-flat-button color="primary" routerLink="/s/create">Create Story</a>
+      <a mat-flat-button color="primary" (click)="logout()">Logout</a>
     </div>
     <ng-template #guestNav>
       <div class="logged-out">
