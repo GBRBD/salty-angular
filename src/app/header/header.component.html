@@ -4,12 +4,17 @@
       ><mat-icon>whatshot</mat-icon>{{ title }}</a
     >
     <span class="spacer"></span>
-    <a
-      *ngIf="(authService.getUserState | async)"
-      mat-flat-button
-      color="primary"
-      routerLink="/s/create"
-      >Create Story</a
+    <div
+      class="logged-in"
+      *ngIf="(authService.getUserState | async); else guestNav"
     >
+      <a mat-flat-button color="primary" routerLink="/s/create">Create Story</a>
+    </div>
+    <ng-template #guestNav>
+      <div class="logged-out">
+        <a mat-flat-button color="primary" routerLink="/register">Register</a>
+        <a mat-flat-button color="primary" routerLink="/login">Login</a>
+      </div>
+    </ng-template>
   </mat-toolbar-row>
 </mat-toolbar>

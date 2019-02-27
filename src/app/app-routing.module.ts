@@ -6,9 +6,13 @@ import { CreateStoryComponent } from './create-story/create-story.component';
 import { EditStoryComponent } from './edit-story/edit-story.component';
 import { AuthGuard } from './core/guards/guard';
 import { StoryResolver } from './core/resolvers/story.resolver';
+import { RegisterComponent } from './auth/register/register.component';
+import { LoginComponent } from './auth/login/login.component';
 
 const routes: Routes = [
   { path: '', component: StoryListComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
   {
     path: 's/create',
     component: CreateStoryComponent,

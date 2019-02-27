@@ -15,6 +15,7 @@ import { ApiInterceptor } from './core/interceptors/api.interceptor';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { HeaderComponent } from './header/header.component';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -26,7 +27,8 @@ import { HeaderComponent } from './header/header.component';
     CoreModule,
     StoryModule,
     CreateStoryModule,
-    EditStoryModule
+    EditStoryModule,
+    AuthModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true }

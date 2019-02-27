@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,5 +10,7 @@ export class HeaderComponent implements OnInit {
   title = 'Salty';
   constructor(public authService: AuthService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.authService.getUserState);
+  }
 }
