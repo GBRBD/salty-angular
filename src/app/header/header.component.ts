@@ -10,7 +10,5 @@ export class HeaderComponent implements OnInit {
   title = 'Salty';
   constructor(public authService: AuthService) {}
 
-  ngOnInit() {
-    console.log(this.authService.getUserState);
-  }
+  ngOnInit() {}
 }
