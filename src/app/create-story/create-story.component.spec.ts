@@ -14,7 +14,7 @@ describe('CreateStoryComponent', () => {
   let title: AbstractControl;
   let content: AbstractControl;
   let createStoryElement: HTMLElement;
-  let storiesServiceSpy: StoriesService;
+  let storiesService: StoriesService;
   let helperService: HelperService;
   let errors;
 
@@ -29,8 +29,8 @@ describe('CreateStoryComponent', () => {
 
       providers: [
         StoriesService,
-        HelperService,
-        { provide: Router, useValue: router }
+        HelperService
+        // { provide: Router, useValue: router }
       ]
     }).compileComponents();
   }));
@@ -38,7 +38,7 @@ describe('CreateStoryComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateStoryComponent);
     component = fixture.componentInstance;
-    storiesServiceSpy = TestBed.get(StoriesService);
+    storiesService = TestBed.get(StoriesService);
     helperService = TestBed.get(HelperService);
     fixture.detectChanges();
     createStoryElement = fixture.nativeElement;
@@ -69,24 +69,24 @@ describe('CreateStoryComponent', () => {
     it('should submit form when form is valid ', () => {
       title.setValue('xxx');
       content.setValue('xxxx');
-      spyOn(storiesServiceSpy, 'createStory').and.returnValue({
+      spyOn(storiesService, 'createStory').and.returnValue({
         subscribe: () => {}
       });
       component.onSubmit();
       fixture.detectChanges();
-      expect(storiesServiceSpy.createStory).toHaveBeenCalled();
+      expect(storiesService.createStory).toHaveBeenCalled();
     });
 
     it('should not submit form when form is invalid ', () => {
-      spyOn(storiesServiceSpy, 'createStory');
+      spyOn(storiesService, 'createStory');
       component.onSubmit();
       fixture.detectChanges();
-      expect(storiesServiceSpy.createStory).not.toHaveBeenCalled();
+      expect(storiesService.createStory).not.toHaveBeenCalled();
     });
 
-    it(`should have a button with test 'edit'`, () => {
+    it(`should have a button with text 'edit'`, () => {
       const submitButton = createStoryElement.querySelector('button');
-      expect(submitButton.textContent).toMatch(/create/i);
+      expect(submitButton.textContent).toContain('Create');
     });
 
     it('Submit button should be disabled when form is invalid', () => {

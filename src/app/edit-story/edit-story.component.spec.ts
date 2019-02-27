@@ -90,12 +90,12 @@ describe('EditStoryComponent', () => {
 
   it(`should have a button with test 'save'`, () => {
     const submitButton = editStoryElement.querySelector('button');
-    expect(submitButton.textContent).toMatch(/save/i);
+    expect(submitButton.textContent).toContain('Save');
   });
 
   it(`should have a button with test 'delete'`, () => {
     const deleteButton = editStoryElement.querySelector('.delete');
-    expect(deleteButton.textContent).toMatch(/delete/i);
+    expect(deleteButton.textContent).toContain('Delete');
   });
 
   it('should delete story when clicked ', () => {

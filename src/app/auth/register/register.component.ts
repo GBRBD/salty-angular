@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import {
   FormGroupDirective,
   FormGroup,
@@ -18,46 +18,69 @@ import { map, switchMap } from 'rxjs/operators';
 })
 export class RegisterComponent implements OnInit {
   @ViewChild('formDirective') formDirective: FormGroupDirective;
-
   registerForm: FormGroup;
-
+  errorMessages = {
+    emptyUsernameError: 'Please enter a username!',
+    tooLongUsernameError: 'Username is too long! Max 12 character!',
+    emptyEmailError: 'Please enter an E-mail address!',
+    emptyPasswordError: 'Please enter a password!',
+    tooLongPasswordError: 'Password is too long! Max 32 characters!'
+  };
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    public authService: AuthService
+    public authService: AuthService,
+    public ngZone: NgZone
   ) {}
 
   ngOnInit() {
     this.initializeForm();
   }
 
-  onSubmit(form) {
+  onSubmit() {
     const user: User = {
-      username: form.username,
-      email: form.email,
-      password: form.password
+      username: this.registerForm.value.username,
+      email: this.registerForm.value.email,
+      password: this.registerForm.value.password
     };
-
-    console.log(user);
-    console.log('valid');
-    from(this.authService.signUp(user))
-      // .pipe(
-      //   map(result => {
-      //     return result.user.uid;
-      //   })
-      //   // switchMap(uid => {
-      //   //   user['id'] = uid;
-      //   //   return this.userService.saveUser(user);
-      //   // })
-      // )
-      .subscribe(() => console.log('subbed'));
+    this.ngZone.run(() => {
+      from(this.authService.signUp(user))
+        // .pipe(
+        //   map(result => {
+        //     return result.user.uid;
+        //   })
+        //   // switchMap(uid => {
+        //   //   user['id'] = uid;
+        //   //   return this.userService.saveUser(user);
+        //   // })
+        // )
+        .subscribe(() => this.router.navigate(['/']));
+    });
   }
 
   private initializeForm() {
     this.registerForm = this.fb.group({
-      username: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required]
+      username: this.initUsernameField(),
+      email: this.initEmailField(),
+      password: this.initPasswordField()
     });
+  }
+
+  private initUsernameField(): any {
+    return [
+      null,
+      [Validators.required, Validators.minLength(4), Validators.maxLength(12)]
+    ];
+  }
+
+  private initEmailField(): any {
+    return [null, [Validators.required, Validators.email]];
+  }
+
+  private initPasswordField(): any {
+    return [
+      null,
+      [Validators.required, Validators.minLength(6), Validators.maxLength(32)]
+    ];
   }
 }

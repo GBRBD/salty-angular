@@ -7,6 +7,7 @@
       [formGroup]="createForm"
       #formDirective="ngForm"
       (ngSubmit)="onSubmit()"
+      novalidate
     >
       <mat-form-field hintLabel="Max 140 characters">
         <input
@@ -21,12 +22,18 @@
         >
         <mat-error
           class="title"
-          *ngIf="!!createForm.controls.title.errors?.required"
+          *ngIf="
+            createForm.controls.title.touched &&
+            createForm.controls.title.hasError('required')
+          "
           >{{ errorMessages.emptyTitleError }}</mat-error
         >
         <mat-error
           class="title"
-          *ngIf="!!createForm.controls.title.errors?.maxlength"
+          *ngIf="
+            createForm.controls.title.touched &&
+            createForm.controls.title.hasError('maxlength')
+          "
           >{{ errorMessages.tooLongTitleError }}</mat-error
         >
       </mat-form-field>
@@ -43,12 +50,18 @@
         >
         <mat-error
           class="content"
-          *ngIf="!!createForm.controls.content.errors?.required"
+          *ngIf="
+            createForm.controls.content.touched &&
+            createForm.controls.content.hasError('required')
+          "
           >{{ errorMessages.emptyContentError }}
         </mat-error>
         <mat-error
           class="content"
-          *ngIf="!!createForm.controls.content.errors?.maxlength"
+          *ngIf="
+            createForm.controls.content.touched &&
+            createForm.controls.content.hasError('maxlength')
+          "
           >{{ errorMessages.tooLongContentError }}
         </mat-error>
       </mat-form-field>

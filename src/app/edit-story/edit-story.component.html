@@ -7,6 +7,7 @@
       [formGroup]="editForm"
       #formDirective="ngForm"
       (ngSubmit)="onSubmit()"
+      novalidate
     >
       <mat-form-field hintLabel="Max 140 characters">
         <input
@@ -21,12 +22,18 @@
         >
         <mat-error
           class="title"
-          *ngIf="!!editForm.controls.title.errors?.required"
+          *ngIf="
+            editForm.controls.title.touched &&
+            editForm.controls.title.hasError('required')
+          "
           >{{ errorMessages.emptyTitleError }}</mat-error
         >
         <mat-error
           class="title"
-          *ngIf="!!editForm.controls.title.errors?.maxlength"
+          *ngIf="
+            editForm.controls.title.touched &&
+            editForm.controls.title.hasError('maxlength')
+          "
           >{{ errorMessages.tooLongTitleError }}</mat-error
         >
       </mat-form-field>
@@ -43,12 +50,18 @@
         >
         <mat-error
           class="content"
-          *ngIf="!!editForm.controls.content.errors?.required"
+          *ngIf="
+            editForm.controls.content.touched &&
+            editForm.controls.content.hasError('required')
+          "
           >{{ errorMessages.emptyContentError }}
         </mat-error>
         <mat-error
           class="content"
-          *ngIf="!!editForm.controls.content.errors?.maxlength"
+          *ngIf="
+            editForm.controls.content.touched &&
+            editForm.controls.content.hasError('maxlength')
+          "
           >{{ errorMessages.tooLongContentError }}
         </mat-error>
       </mat-form-field>

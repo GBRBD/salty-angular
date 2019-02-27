@@ -49,7 +49,7 @@ export class CreateStoryComponent implements OnInit {
 
   private initContentField(): any {
     return [
-      '',
+      null,
       [
         Validators.required,
         Validators.minLength(3),
@@ -60,7 +60,7 @@ export class CreateStoryComponent implements OnInit {
 
   private initTitleField(): any {
     return [
-      '',
+      null,
       [Validators.required, Validators.minLength(3), Validators.maxLength(140)]
     ];
   }
@@ -73,9 +73,9 @@ export class CreateStoryComponent implements OnInit {
       title: this.createForm.value.title,
       content: this.createForm.value.content
     };
-    this.storiesService.createStory(story).subscribe(() => {
-      this.router.navigate(['/']);
-    });
+    this.storiesService
+      .createStory(story)
+      .subscribe(() => this.router.navigate(['/']));
   }
 
   private resetForm() {
