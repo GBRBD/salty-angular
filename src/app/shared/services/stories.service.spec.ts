@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { StoriesService } from './stories.service';
 import {
   HttpClientTestingModule,
@@ -21,6 +20,17 @@ describe('StoriesService', () => {
     })
   );
 
+  const testStory = {
+    _id: '5c7167898089a63c94681178',
+    title: 'Title 1',
+    content: 'Content 1'
+  };
+
+  const testStories = [
+    { title: 'Title 1', content: 'Content 1' },
+    { title: 'Title 2', content: 'Content 2' }
+  ] as Story[];
+
   beforeEach(() => {
     httpClient = TestBed.get(HttpClient);
     httpTestingController = TestBed.get(HttpTestingController);
@@ -38,67 +48,39 @@ describe('StoriesService', () => {
 
   describe('#addStory', () => {
     it('should make a POST request', () => {
-      const story: Story = { title: 'Test Title', content: 'Test Content' };
-      storiesService.createStory(story).subscribe();
+      storiesService.createStory(testStory).subscribe();
       const req = httpTestingController.expectOne('api/v1/stories/create');
       expect(req.request.method).toEqual('POST');
-      expect(req.request.body).toEqual(story);
+      expect(req.request.body).toEqual(testStory);
     });
   });
 
   describe('#deleteStory', () => {
     it('should make a POST request', () => {
-      const expectedStory = {
-        _id: '5c7167898089a63c94681178',
-        title: 'Title 1',
-        content: 'Content 1'
-      };
-
-      storiesService.deleteStory(expectedStory).subscribe();
+      storiesService.deleteStory(testStory).subscribe();
       const req = httpTestingController.expectOne('api/v1/stories/delete');
       expect(req.request.method).toEqual('POST');
-      expect(req.request.body).toEqual(expectedStory);
+      expect(req.request.body).toEqual(testStory);
     });
   });
 
   describe('#editStory', () => {
     it('should make a PUT request', () => {
-      const story: Story = {
-        _id: '5c719d9abf70301be40b1a77',
-        title: 'Test Title',
-        content: 'Test Content'
-      };
-
-      storiesService.editStory(story).subscribe();
+      storiesService.editStory(testStory).subscribe();
       const req = httpTestingController.expectOne('api/v1/stories/edit');
       expect(req.request.method).toEqual('PUT');
-      expect(req.request.body).toEqual(story);
+      expect(req.request.body).toEqual(testStory);
     });
   });
 
   describe('#getStory', () => {
-    let expectedStory: Story;
-
-    beforeEach(() => {
-      storiesService = TestBed.get(StoriesService);
-
-      expectedStory = {
-        _id: '5c7167898089a63c94681178',
-        title: 'Title 1',
-        content: 'Content 1'
-      };
-    });
-
     it('should make a GET request', () => {
       const id = '5c7167898089a63c94681178';
       storiesService
         .getStory(id)
         .subscribe(
           story =>
-            expect(story).toEqual(
-              expectedStory,
-              'should return expected story'
-            ),
+            expect(story).toEqual(testStory, 'should return expected story'),
           fail
         );
 
@@ -107,29 +89,18 @@ describe('StoriesService', () => {
       );
       expect(req.request.method).toEqual('GET');
 
-      req.flush(expectedStory);
+      req.flush(testStory);
     });
   });
 
   describe('#getStories', () => {
-    let expectedStories: Story[];
-
-    beforeEach(() => {
-      storiesService = TestBed.get(StoriesService);
-
-      expectedStories = [
-        { title: 'Title 1', content: 'Content 1' },
-        { title: 'Title 2', content: 'Content 2' }
-      ] as Story[];
-    });
-
     it('should make a GET request', () => {
       storiesService
         .getStories()
         .subscribe(
           stories =>
             expect(stories).toEqual(
-              expectedStories,
+              testStories,
               'should return expected stories'
             ),
           fail
@@ -138,7 +109,7 @@ describe('StoriesService', () => {
       const req = httpTestingController.expectOne('api/v1/stories');
       expect(req.request.method).toEqual('GET');
 
-      req.flush(expectedStories);
+      req.flush(testStories);
     });
   });
 });

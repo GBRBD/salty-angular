@@ -48,32 +48,13 @@ describe('LoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it(`should have a title with 'Login' `, () => {
+
+  it(`should have a title with 'Login'`, () => {
     const title = loginElement.querySelector('mat-card-title');
     expect(title.textContent).toContain('Login');
   });
 
-  it('should submit form when form is valid ', () => {
-    email.setValue('xxxx@xxx.com');
-    password.setValue('xxxxxxxx');
-
-    spyOn(authService, 'signIn').and.returnValue(Promise.resolve());
-
-    component.onSubmit();
-    fixture.detectChanges();
-    expect(authService.signIn).toHaveBeenCalled();
-  });
-
-  it(`should have a button with text 'login'`, () => {
-    const submitButton = loginElement.querySelector('button');
-    expect(submitButton.textContent).toContain('Login');
-  });
-
-  it('Submit button should be disabled when form is invalid', () => {
-    const submitButton = loginElement.querySelector('button');
-    expect(submitButton.disabled).toBeTruthy();
-  });
-  describe('Register Form', () => {
+  describe('Login Form', () => {
     it('should be invalid when empty', () => {
       expect(component.loginForm.valid).toBeFalsy();
     });
@@ -84,6 +65,27 @@ describe('LoginComponent', () => {
     });
 
     it('Submit button should be disabled when form is invalid', () => {
+      const submitButton = loginElement.querySelector('button');
+      expect(submitButton.disabled).toBeTruthy();
+    });
+
+    it('should submit form when form is valid ', () => {
+      email.setValue('xxxx@xxx.com');
+      password.setValue('xxxxxxxx');
+
+      spyOn(authService, 'signIn').and.returnValue(Promise.resolve());
+
+      component.onSubmit();
+      fixture.detectChanges();
+      expect(authService.signIn).toHaveBeenCalled();
+    });
+
+    it(`should have a button with text 'login'`, () => {
+      const submitButton = loginElement.querySelector('button');
+      expect(submitButton.textContent).toContain('Login');
+    });
+
+    it('should have a disabled submit button when form is invalid', () => {
       const submitButton = loginElement.querySelector('button');
       expect(submitButton.disabled).toBeTruthy();
     });

@@ -18,11 +18,10 @@ describe('StoryListComponent', () => {
   beforeEach(async(() => {
     testStory = [{ title: 'Test Title', content: 'Test Content' }];
 
-    // Create a fake TwainService object with a `getQuote()` spy
     const storiesService = jasmine.createSpyObj('StoriesService', [
       'getStories'
     ]);
-    // Make the spy return a synchronous Observable with the test data
+
     getStoriesSpy = storiesService.getStories.and.returnValue(of(testStory));
 
     TestBed.configureTestingModule({

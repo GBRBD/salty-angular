@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
 
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CreateStoryComponent } from './create-story.component';
@@ -18,20 +17,12 @@ describe('CreateStoryComponent', () => {
   let helperService: HelperService;
   let errors;
 
-  const router = {
-    navigate: jasmine.createSpy('navigate')
-  };
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [SharedModule, ReactiveFormsModule, RouterTestingModule],
       declarations: [CreateStoryComponent],
 
-      providers: [
-        StoriesService,
-        HelperService
-        // { provide: Router, useValue: router }
-      ]
+      providers: [StoriesService, HelperService]
     }).compileComponents();
   }));
 
@@ -84,7 +75,7 @@ describe('CreateStoryComponent', () => {
       expect(storiesService.createStory).not.toHaveBeenCalled();
     });
 
-    it(`should have a button with text 'edit'`, () => {
+    it(`should have a button with text 'Create'`, () => {
       const submitButton = createStoryElement.querySelector('button');
       expect(submitButton.textContent).toContain('Create');
     });

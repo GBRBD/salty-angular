@@ -8,7 +8,6 @@ import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { HelperService } from 'src/app/shared/services/helper.service';
-import { from } from 'rxjs';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -56,27 +55,6 @@ describe('RegisterComponent', () => {
     expect(title.textContent).toContain('Register');
   });
 
-  it('should submit form when form is valid ', () => {
-    username.setValue('xxxx');
-    email.setValue('xxxx@xxx.com');
-    password.setValue('xxxxxxxx');
-
-    spyOn(authService, 'signUp').and.returnValue(Promise.resolve());
-
-    component.onSubmit();
-    fixture.detectChanges();
-    expect(authService.signUp).toHaveBeenCalled();
-  });
-
-  it(`should have a button with text 'register'`, () => {
-    const submitButton = registerElement.querySelector('button');
-    expect(submitButton.textContent).toContain('Register');
-  });
-  it('Submit button should be disabled when form is invalid', () => {
-    const submitButton = registerElement.querySelector('button');
-    expect(submitButton.disabled).toBeTruthy();
-  });
-
   describe('Register Form', () => {
     it('should be invalid when empty', () => {
       expect(component.registerForm.valid).toBeFalsy();
@@ -90,6 +68,28 @@ describe('RegisterComponent', () => {
     it('Submit button should be disabled when form is invalid', () => {
       const submitButton = registerElement.querySelector('button');
       expect(submitButton.disabled).toBeTruthy();
+    });
+
+    it('should submit form when form is valid ', () => {
+      username.setValue('xxxx');
+      email.setValue('xxxx@xxx.com');
+      password.setValue('xxxxxxxx');
+
+      spyOn(authService, 'signUp').and.returnValue(Promise.resolve());
+
+      component.onSubmit();
+      fixture.detectChanges();
+      expect(authService.signUp).toHaveBeenCalled();
+    });
+
+    it('should have disabled submit button when form is invalid', () => {
+      const submitButton = registerElement.querySelector('button');
+      expect(submitButton.disabled).toBeTruthy();
+    });
+
+    it(`should have a button with text 'register'`, () => {
+      const submitButton = registerElement.querySelector('button');
+      expect(submitButton.textContent).toContain('Register');
     });
 
     describe('Username Field', () => {
