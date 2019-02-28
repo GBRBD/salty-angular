@@ -1,4 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
+import {
+  FormGroupDirective,
+  FormGroup,
+  Validators,
+  FormBuilder
+} from '@angular/forms';
+import { User } from 'src/app/shared/models/user.model';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { Router } from '@angular/router';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -6,10 +16,61 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
-  constructor() { }
+  @ViewChild('formDirective') formDirective: FormGroupDirective;
+  loginForm: FormGroup;
+  errorMessages = {
+    emptyUsernameError: 'Please enter a username!',
+    tooLongUsernameError: 'Username is too long! Max 12 character!',
+    emptyEmailError: 'Please enter an E-mail address!',
+    emptyPasswordError: 'Please enter a password!',
+    tooLongPasswordError: 'Password is too long! Max 32 characters!'
+  };
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    public authService: AuthService,
+    public ngZone: NgZone
+  ) {}
 
   ngOnInit() {
+    this.initializeForm();
   }
 
+  onSubmit() {
+    const user: User = {
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password
+    };
+    this.ngZone.run(() => {
+      from(this.authService.signIn(user))
+        // .pipe(
+        //   map(result => {
+        //     return result.user.uid;
+        //   })
+        //   // switchMap(uid => {
+        //   //   user['id'] = uid;
+        //   //   return this.userService.saveUser(user);
+        //   // })
+        // )
+        .subscribe(() => this.router.navigate(['/']));
+    });
+  }
+
+  private initializeForm() {
+    this.loginForm = this.fb.group({
+      email: this.initEmailField(),
+      password: this.initPasswordField()
+    });
+  }
+
+  private initEmailField(): any {
+    return [null, [Validators.required, Validators.email]];
+  }
+
+  private initPasswordField(): any {
+    return [
+      null,
+      [Validators.required, Validators.minLength(6), Validators.maxLength(32)]
+    ];
+  }
 }

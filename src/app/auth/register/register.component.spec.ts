@@ -82,7 +82,7 @@ describe('RegisterComponent', () => {
       expect(component.registerForm.valid).toBeFalsy();
     });
 
-    it(`should have a button with text 'edit'`, () => {
+    it(`should have a button with text 'Register'`, () => {
       const submitButton = registerElement.querySelector('button');
       expect(submitButton.textContent).toContain('Register');
     });
