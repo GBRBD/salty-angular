@@ -6,8 +6,12 @@ import { environment } from 'src/environments/environment';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 describe('AuthService', () => {
-  beforeEach(() => TestBed.configureTestingModule({ imports: [AngularFireModule.initializeApp(environment.firebase)],
-      providers: [AngularFireAuth, AuthService]}));
+  beforeEach(() =>
+    TestBed.configureTestingModule({
+      imports: [AngularFireModule.initializeApp(environment.firebase)],
+      providers: [AngularFireAuth, AuthService]
+    })
+  );
 
   it('should be created', () => {
     const service: AuthService = TestBed.get(AuthService);

@@ -17,26 +17,27 @@
           required
           maxlength="12"
         />
+
+        <mat-hint align="end"
+          >{{ registerForm.controls.username.value?.length || 0 }}/12</mat-hint
+        >
+        <mat-error
+          class="username"
+          *ngIf="
+            registerForm.controls.username.touched &&
+            registerForm.controls.username.hasError('required')
+          "
+          >{{ errorMessages.emptyUsernameError }}</mat-error
+        >
+        <mat-error
+          class="username"
+          *ngIf="
+            registerForm.controls.username.touched &&
+            registerForm.controls.username.hasError('maxlength')
+          "
+          >{{ errorMessages.tooLongUsernameError }}</mat-error
+        >
       </mat-form-field>
-      <mat-hint align="end"
-        >{{ registerForm.controls.username.value?.length || 0 }}/12</mat-hint
-      >
-      <mat-error
-        class="username"
-        *ngIf="
-          registerForm.controls.username.touched &&
-          registerForm.controls.username.hasError('required')
-        "
-        >{{ errorMessages.emptyUsernameError }}</mat-error
-      >
-      <mat-error
-        class="username"
-        *ngIf="
-          registerForm.controls.username.touched &&
-          registerForm.controls.username.hasError('maxlength')
-        "
-        >{{ errorMessages.tooLongUsernameError }}</mat-error
-      >
       <mat-form-field>
         <input
           matInput
@@ -45,16 +46,16 @@
           required
           type="email"
         />
-      </mat-form-field>
-      <mat-error
-        class="email"
-        *ngIf="
-          registerForm.controls.email.touched &&
-          registerForm.controls.email.hasError('required')
-        "
-        >{{ errorMessages.emptyEmailError }}</mat-error
-      >
 
+        <mat-error
+          class="email"
+          *ngIf="
+            registerForm.controls.email.touched &&
+            registerForm.controls.email.hasError('required')
+          "
+          >{{ errorMessages.emptyEmailError }}</mat-error
+        >
+      </mat-form-field>
       <mat-form-field hintLabel="Minimum 6, maximum 32 characters">
         <input
           matInput
@@ -64,27 +65,26 @@
           type="password"
           maxlength="32"
         />
+        <mat-hint align="end"
+          >{{ registerForm.controls.password.value?.length || 0 }}/32</mat-hint
+        >
+        <mat-error
+          class="password"
+          *ngIf="
+            registerForm.controls.password.touched &&
+            registerForm.controls.password.hasError('required')
+          "
+          >{{ errorMessages.emptyPasswordError }}</mat-error
+        >
+        <mat-error
+          class="password"
+          *ngIf="
+            registerForm.controls.password.touched &&
+            registerForm.controls.password.hasError('maxlength')
+          "
+          >{{ errorMessages.tooLongPasswordError }}</mat-error
+        >
       </mat-form-field>
-      <mat-hint align="end"
-        >{{ registerForm.controls.password.value?.length || 0 }}/32</mat-hint
-      >
-      <mat-error
-        class="password"
-        *ngIf="
-          registerForm.controls.password.touched &&
-          registerForm.controls.password.hasError('required')
-        "
-        >{{ errorMessages.emptyPasswordError }}</mat-error
-      >
-      <mat-error
-        class="password"
-        *ngIf="
-          registerForm.controls.password.touched &&
-          registerForm.controls.password.hasError('maxlength')
-        "
-        >{{ errorMessages.tooLongPasswordError }}</mat-error
-      >
-
       <button
         type="submit"
         mat-raised-button

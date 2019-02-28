@@ -1,21 +1,8 @@
 mat-card {
-  margin: 1rem;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  margin-left: 1rem;
-  align-items: flex-start;
-}
-
-mat-form-field {
-  width: 100%;
-}
-
-button {
-  align-self: flex-end;
-  margin: 1rem 0;
+  button {
+    align-self: flex-end;
+    margin: 1rem 0;
+  }
 }
 
 @media only screen and (min-width: 600px) {

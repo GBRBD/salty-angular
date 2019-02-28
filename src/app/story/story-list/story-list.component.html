@@ -1,32 +1,32 @@
 <mat-card class="example-card" *ngFor="let story of (stories$ | async)">
-  <a href="">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title
-        ><a href="">{{ story.title }}</a>
-      </mat-card-title>
-      <mat-card-subtitle><a>Test Elek</a> · <a>2h</a></mat-card-subtitle>
-    </mat-card-header>
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title
+      ><a href="">{{ story.title }}</a>
+    </mat-card-title>
+    <mat-card-subtitle><a>Test Elek</a> · <a>2h</a></mat-card-subtitle>
+  </mat-card-header>
 
-    <mat-card-content>
-      <p>
-        {{ story.content }}
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <div class="story-meta">
-        <button class="upvote" mat-button color="primary">
-          <mat-icon>thumb_up_alt </mat-icon>
-        </button>
-        <button class="vote" mat-button>1.4 k</button>
-        <button class="downvote" mat-button color="warn" href="">
-          <mat-icon>thumb_down_alt</mat-icon>
-        </button>
-      </div>
-      <button class="comments" mat-button matBadge="15">
-        <mat-icon>comment</mat-icon>
+  <mat-card-content>
+    <p>
+      {{ story.content }}
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <div class="story-meta">
+      <button class="upvote" mat-button color="primary">
+        <mat-icon>thumb_up_alt </mat-icon>
       </button>
-      <a routerLink="/s/edit/{{ story._id }}" mat-button>Edit</a>
-    </mat-card-actions>
-  </a>
+      <button class="vote" mat-button>1.4 k</button>
+      <button class="downvote" mat-button color="warn" href="">
+        <mat-icon>thumb_down_alt</mat-icon>
+      </button>
+    </div>
+    <button class="comments" mat-button matBadge="15">
+      <mat-icon>comment</mat-icon>
+    </button>
+    <a routerLink="/s/edit/{{ story._id }}" mat-raised-button color="primary"
+      >Edit</a
+    >
+  </mat-card-actions>
 </mat-card>

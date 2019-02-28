@@ -8,7 +8,12 @@ export class HelperService {
 
   longStringMaker(numberOfRepeats: number): string {
     if (0 < numberOfRepeats) {
-      return 'x'.repeat(numberOfRepeats);
+      let longString = '';
+      for (let i = 0; i < numberOfRepeats; i++) {
+        longString += 'x';
+      }
+      return longString;
+      // return 'x'.repeat(numberOfRepeats);
     } else {
       throw new Error(`Parameter can't be negative`);
     }

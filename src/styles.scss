@@ -16,7 +16,24 @@ a {
   &:hover {
     color: black;
   }
+
   &:active {
     color: black;
+  }
+}
+
+mat-card {
+  margin: 1rem;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+    align-items: flex-start;
+  }
+
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 1rem;
   }
 }

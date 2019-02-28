@@ -1,6 +1,11 @@
 mat-card {
-  mat-form-field {
-    width: 100%;
+  button {
+    align-self: flex-end;
+    margin: 1rem 0;
+  }
+  mat-card-actions {
+    display: flex;
+    justify-content: center;
   }
 }
 

@@ -22,7 +22,6 @@ describe('HelperService', () => {
       const testString = service.longStringMaker(3);
       expect(testString.length).toBe(3);
     });
-
     it('should throw error if parameter is negative', () => {
       expect(() => {
         service.longStringMaker(-30);
