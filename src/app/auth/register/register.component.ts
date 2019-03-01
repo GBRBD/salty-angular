@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { User } from 'src/app/shared/models/user.model';
 import { from } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -30,7 +31,8 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     public authService: AuthService,
-    public ngZone: NgZone
+    public ngZone: NgZone,
+    public userService: UserService
   ) {}
 
   ngOnInit() {
@@ -44,17 +46,19 @@ export class RegisterComponent implements OnInit {
       password: this.registerForm.value.password
     };
     this.ngZone.run(() => {
-      from(this.authService.signUp(user))
-        // .pipe(
-        //   map(result => {
-        //     return result.user.uid;
-        //   })
-        //   // switchMap(uid => {
-        //   //   user['id'] = uid;
-        //   //   return this.userService.saveUser(user);
-        //   // })
-        // )
-        .subscribe(() => this.router.navigate(['/']));
+      if (this.registerForm.valid) {
+        from(this.authService.signUp(user))
+          .pipe(
+            map(result => {
+              return result.user.uid;
+            }),
+            switchMap(uid => {
+              user.uid = uid;
+              return this.userService.saveUser(user);
+            })
+          )
+          .subscribe(() => console.log('faszom'));
+      }
     });
   }
 

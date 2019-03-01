@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Story } from 'src/app/shared/models/story.model';
 import { StoriesService } from 'src/app/shared/services/stories.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-story-list',
@@ -11,7 +12,7 @@ import { StoriesService } from 'src/app/shared/services/stories.service';
 export class StoryListComponent implements OnInit {
   stories$: Observable<Story[]>;
 
-  constructor(public storiesService: StoriesService) {}
+  constructor(public storiesService: StoriesService, private router: Router) {}
 
   ngOnInit() {
     this.stories$ = this.storiesService.getStories();
