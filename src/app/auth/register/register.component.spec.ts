@@ -70,18 +70,6 @@ describe('RegisterComponent', () => {
       expect(submitButton.disabled).toBeTruthy();
     });
 
-    it('should submit form when form is valid ', () => {
-      username.setValue('xxxx');
-      email.setValue('xxxx@xxx.com');
-      password.setValue('xxxxxxxx');
-
-      spyOn(authService, 'signUp').and.returnValue(Promise.resolve());
-
-      component.onSubmit();
-      fixture.detectChanges();
-      expect(authService.signUp).toHaveBeenCalled();
-    });
-
     it('should have disabled submit button when form is invalid', () => {
       const submitButton = registerElement.querySelector('button');
       expect(submitButton.disabled).toBeTruthy();
@@ -103,10 +91,10 @@ describe('RegisterComponent', () => {
         expect(username.valid).toBeFalsy();
       });
 
-      // it('should be invalid when input length is less than 4 character', () => {
-      //   username.setValue('xx');
-      //   expect(username.valid).toBeFalsy();
-      // });
+      it('should be invalid when input length is less than 4 character', () => {
+        username.setValue('xx');
+        expect(username.valid).toBeFalsy();
+      });
 
       it('should be valid when input length is greater than or equal to 4 character', () => {
         username.setValue('xxxx');
