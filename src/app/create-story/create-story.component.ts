@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -9,13 +9,14 @@ import { StoriesService } from '../shared/services/stories.service';
 import { Story } from '../shared/models/story.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-story',
   templateUrl: './create-story.component.html',
   styleUrls: ['./create-story.component.scss']
 })
-export class CreateStoryComponent implements OnInit {
+export class CreateStoryComponent implements OnInit, OnDestroy {
   @ViewChild('formDirective') formDirective: FormGroupDirective;
   createForm: FormGroup;
   errorMessages = {
@@ -24,6 +25,7 @@ export class CreateStoryComponent implements OnInit {
     emptyContentError: 'Please write a story!',
     tooLongContentError: 'Story is too long! Max 10000 character!'
   };
+  private createSub: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -33,6 +35,10 @@ export class CreateStoryComponent implements OnInit {
 
   ngOnInit() {
     this.initializeForm();
+  }
+
+  ngOnDestroy() {
+    this.createSub.unsubscribe();
   }
 
   onSubmit() {
@@ -73,7 +79,7 @@ export class CreateStoryComponent implements OnInit {
       title: this.createForm.value.title,
       content: this.createForm.value.content
     };
-    this.storiesService
+    this.createSub = this.storiesService
       .createStory(story)
       .subscribe(() => this.router.navigate(['/']));
   }
