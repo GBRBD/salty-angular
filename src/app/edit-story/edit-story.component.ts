@@ -32,7 +32,6 @@ export class EditStoryComponent implements OnInit {
     public activatedRoute: ActivatedRoute,
     private router: Router
   ) {
-    console.log('edit');
     this.resolveStory();
   }
 
