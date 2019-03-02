@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Story } from '../models/story.model';
 import { HttpClient } from '@angular/common/http';
+import { take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,11 @@ export class StoriesService {
   }
 
   getStories() {
-    return this.http.get<Story[]>('api/v1/stories');
+    return this.http.get<Story[]>('api/v1/stories').pipe(take(1));
   }
 
   getStory(id: string) {
-    return this.http.get<Story>(`api/v1/stories/${id}`);
+    return this.http.get<Story>(`api/v1/stories/${id}`).pipe(take(1));
   }
 
   editStory(story: Story) {

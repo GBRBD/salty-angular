@@ -57,7 +57,10 @@ export class RegisterComponent implements OnInit {
               return this.userService.saveUser(user);
             })
           )
-          .subscribe(() => console.log('faszom'));
+          .subscribe(() => {
+            this.router.navigate(['/']);
+            console.log('Sikeres regisztracio');
+          });
       }
     });
   }

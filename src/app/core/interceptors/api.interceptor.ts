@@ -20,7 +20,6 @@ export class ApiInterceptor implements HttpInterceptor {
     request = request.clone({
       url: `${environment.baseApiHref}${request.url}`
     });
-    console.log(request);
     return next.handle(request);
   }
 }

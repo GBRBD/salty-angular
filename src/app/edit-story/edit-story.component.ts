@@ -32,6 +32,7 @@ export class EditStoryComponent implements OnInit {
     public activatedRoute: ActivatedRoute,
     private router: Router
   ) {
+    console.log('edit');
     this.resolveStory();
   }
 
@@ -59,6 +60,13 @@ export class EditStoryComponent implements OnInit {
     });
   }
 
+  private initTitleField(): any {
+    return [
+      this.story.title,
+      [Validators.required, Validators.minLength(3), Validators.maxLength(140)]
+    ];
+  }
+
   private initContentField(): any {
     return [
       this.story.content,
@@ -67,13 +75,6 @@ export class EditStoryComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(10000)
       ]
-    ];
-  }
-
-  private initTitleField(): any {
-    return [
-      this.story.title,
-      [Validators.required, Validators.minLength(3), Validators.maxLength(140)]
     ];
   }
 

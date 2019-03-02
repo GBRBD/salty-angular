@@ -24,11 +24,11 @@ export class AuthInterceptor implements HttpInterceptor {
         if (tokenId) {
           request = request.clone({
             setHeaders: {
-              Authorization: `tokenId ${tokenId}`
+              Authorization: `Bearer ${tokenId}`
             }
           });
         }
-        console.log(request);
+
         return next.handle(request);
       })
     );

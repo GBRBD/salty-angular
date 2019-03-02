@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class StoryListComponent implements OnInit {
   stories$: Observable<Story[]>;
 
-  constructor(public storiesService: StoriesService, private router: Router) {}
+  constructor(public storiesService: StoriesService) {}
 
   ngOnInit() {
     this.stories$ = this.storiesService.getStories();

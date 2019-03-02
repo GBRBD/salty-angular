@@ -15,13 +15,14 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
     path: 's/create',
-    component: CreateStoryComponent
-    // canActivate: [AuthGuard]
+    component: CreateStoryComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 's/edit/:id',
     component: EditStoryComponent,
-    resolve: { story: StoryResolver }
+    resolve: { story: StoryResolver },
+    canActivate: [AuthGuard]
   }
 ];
 
