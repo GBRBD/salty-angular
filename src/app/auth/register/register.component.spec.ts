@@ -103,10 +103,10 @@ describe('RegisterComponent', () => {
         expect(username.valid).toBeFalsy();
       });
 
-      it('should be invalid when input length is less than 4 character', () => {
-        username.setValue('xx');
-        expect(username.valid).toBeFalsy();
-      });
+      // it('should be invalid when input length is less than 4 character', () => {
+      //   username.setValue('xx');
+      //   expect(username.valid).toBeFalsy();
+      // });
 
       it('should be valid when input length is greater than or equal to 4 character', () => {
         username.setValue('xxxx');
