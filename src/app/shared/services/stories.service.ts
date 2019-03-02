@@ -10,6 +10,7 @@ export class StoriesService {
   constructor(private http: HttpClient) {}
 
   createStory(story: Story) {
+    console.log('creating story', story.title);
     return this.http.post<Story>('api/v1/stories/create', story);
   }
 

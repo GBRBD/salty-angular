@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone, OnDestroy } from '@angular/core';
 import {
   FormGroupDirective,
   FormGroup,
@@ -8,7 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { User } from 'src/app/shared/models/user.model';
-import { from } from 'rxjs';
+import { from, Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -17,7 +17,7 @@ import { UserService } from 'src/app/shared/services/user.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   @ViewChild('formDirective') formDirective: FormGroupDirective;
   registerForm: FormGroup;
   errorMessages = {
@@ -27,6 +27,7 @@ export class RegisterComponent implements OnInit {
     emptyPasswordError: 'Please enter a password!',
     tooLongPasswordError: 'Password is too long! Max 32 characters!'
   };
+  private registerSub: Subscription;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -38,6 +39,9 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.initializeForm();
   }
+  ngOnDestroy() {
+    this.registerSub.unsubscribe();
+  }
 
   onSubmit() {
     const user: User = {
@@ -47,7 +51,7 @@ export class RegisterComponent implements OnInit {
     };
     this.ngZone.run(() => {
       if (this.registerForm.valid) {
-        from(this.authService.signUp(user))
+        this.registerSub = from(this.authService.signUp(user))
           .pipe(
             map(result => {
               return result.user.uid;
