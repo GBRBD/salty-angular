@@ -38,7 +38,7 @@ export class CreateStoryComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.createSub.unsubscribe();
+    if (this.createSub) { this.createSub.unsubscribe(); }
   }
 
   onSubmit() {

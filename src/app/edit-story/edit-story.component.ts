@@ -8,13 +8,14 @@ import {
 import { StoriesService } from '../shared/services/stories.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Story } from '../shared/models/story.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-edit-story',
   templateUrl: './edit-story.component.html',
   styleUrls: ['./edit-story.component.scss']
 })
-export class EditStoryComponent implements OnInit {
+export class EditStoryComponent implements OnInit, OnDestroy {
   @ViewChild('formDirective') formDirective: FormGroupDirective;
   editForm: FormGroup;
   errorMessages = {
@@ -23,7 +24,8 @@ export class EditStoryComponent implements OnInit {
     emptyContentError: 'Please write a story!',
     tooLongContentError: 'Story is too long! Max 10000 character!'
   };
-
+  private editeSub: Subscription;
+  private deleteSub: Subscription;
   story: Story;
 
   constructor(
@@ -37,6 +39,11 @@ export class EditStoryComponent implements OnInit {
 
   ngOnInit() {
     this.initializeForm();
+  }
+
+  ngOnDestroy() {
+    if (this.editeSub) { this.editeSub.unsubscribe(); }
+    if (this.deleteSub) { this.deleteSub.unsubscribe(); }
   }
 
   onSubmit() {
@@ -84,9 +91,10 @@ export class EditStoryComponent implements OnInit {
     const story: Story = {
       _id: this.story._id,
       title: this.editForm.value.title,
-      content: this.editForm.value.content
+      content: this.editForm.value.content,
+      uid: this.story.uid
     };
-    this.storiesService.editStory(story).subscribe(() => {
+    this.editeSub = this.storiesService.editStory(story).subscribe(() => {
       this.router.navigate(['/']);
     });
   }
@@ -97,8 +105,10 @@ export class EditStoryComponent implements OnInit {
   }
 
   private deleteStory() {
-    this.storiesService.deleteStory(this.story).subscribe(() => {
-      this.router.navigate(['/']);
-    });
+    this.deleteSub = this.storiesService
+      .deleteStory(this.story)
+      .subscribe(() => {
+        this.router.navigate(['/']);
+      });
   }
 }
