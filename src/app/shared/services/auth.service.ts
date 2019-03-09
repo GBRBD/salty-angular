@@ -9,7 +9,7 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class AuthService {
-  user: Observable<User>;
+  private user: Observable<User>;
 
   constructor(private afAuth: AngularFireAuth) {
     this.getUserStateFromFirebase();
