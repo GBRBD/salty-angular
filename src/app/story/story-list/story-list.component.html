@@ -5,7 +5,10 @@
       <mat-card-title
         ><a href="">{{ story.title }}</a>
       </mat-card-title>
-      <mat-card-subtitle><a>Test Elek</a> · <a>2h</a></mat-card-subtitle>
+      <mat-card-subtitle
+        ><a>{{ story.username }}</a> ·
+        <a>{{ story.date | date: 'mediumDate' }}</a></mat-card-subtitle
+      >
     </mat-card-header>
 
     <mat-card-content>
