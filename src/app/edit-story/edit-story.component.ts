@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import {
   FormGroupDirective,
   FormGroup,
@@ -42,8 +42,12 @@ export class EditStoryComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.editeSub) { this.editeSub.unsubscribe(); }
-    if (this.deleteSub) { this.deleteSub.unsubscribe(); }
+    if (this.editeSub) {
+      this.editeSub.unsubscribe();
+    }
+    if (this.deleteSub) {
+      this.deleteSub.unsubscribe();
+    }
   }
 
   onSubmit() {
