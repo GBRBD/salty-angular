@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import {
   HttpInterceptor,
@@ -5,8 +7,7 @@ import {
   HttpHandler,
   HttpEvent
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Injectable({

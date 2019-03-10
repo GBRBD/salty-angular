@@ -1,3 +1,5 @@
+import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import {
   FormGroupDirective,
@@ -5,10 +7,9 @@ import {
   FormBuilder,
   Validators
 } from '@angular/forms';
-import { StoriesService } from '../shared/services/stories.service';
-import { ActivatedRoute, Router } from '@angular/router';
+
 import { Story } from '../shared/models/story.model';
-import { Subscription } from 'rxjs';
+import { StoriesService } from '../shared/services/stories.service';
 
 @Component({
   selector: 'app-edit-story',

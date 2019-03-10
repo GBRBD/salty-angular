@@ -1,12 +1,13 @@
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { take, map, tap } from 'rxjs/operators';
 import {
   CanActivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   Router
 } from '@angular/router';
-import { Observable } from 'rxjs';
-import { take, map, tap } from 'rxjs/operators';
+
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Injectable({

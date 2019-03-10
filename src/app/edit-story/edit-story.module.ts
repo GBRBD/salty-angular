@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { EditStoryComponent } from './edit-story.component';
+
 import { SharedModule } from '../shared/shared.module';
+import { EditStoryComponent } from './edit-story.component';
 
 @NgModule({
   declarations: [EditStoryComponent],

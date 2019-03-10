@@ -1,12 +1,10 @@
+import { of } from 'rxjs';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { of } from 'rxjs';
-
-import { SharedModule } from 'src/app/shared/shared.module';
-import { StoryListComponent } from './story-list.component';
-import { StoriesService } from 'src/app/shared/services/stories.service';
 import { Story } from 'src/app/shared/models/story.model';
-import { RouterTestingModule } from '@angular/router/testing';
+import { StoryListComponent } from './story-list.component';
+import { SharedTestModule } from 'src/app/shared/shared-test.module';
+import { StoriesService } from 'src/app/shared/services/stories.service';
 
 describe('StoryListComponent', () => {
   let component: StoryListComponent;
@@ -25,7 +23,7 @@ describe('StoryListComponent', () => {
     getStoriesSpy = storiesService.getStories.and.returnValue(of(testStory));
 
     TestBed.configureTestingModule({
-      imports: [SharedModule, RouterTestingModule],
+      imports: [SharedTestModule],
       declarations: [StoryListComponent],
       providers: [{ provide: StoriesService, useValue: storiesService }]
     }).compileComponents();

@@ -1,3 +1,5 @@
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import {
   FormBuilder,
@@ -5,11 +7,9 @@ import {
   Validators,
   FormGroupDirective
 } from '@angular/forms';
-import { StoriesService } from '../shared/services/stories.service';
+
 import { Story } from '../shared/models/story.model';
-import { Router } from '@angular/router';
-import { AuthService } from '../shared/services/auth.service';
-import { Subscription } from 'rxjs';
+import { StoriesService } from '../shared/services/stories.service';
 
 @Component({
   selector: 'app-create-story',
@@ -38,7 +38,9 @@ export class CreateStoryComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.createSub) { this.createSub.unsubscribe(); }
+    if (this.createSub) {
+      this.createSub.unsubscribe();
+    }
   }
 
   onSubmit() {

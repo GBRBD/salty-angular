@@ -1,8 +1,8 @@
+import { Observable } from 'rxjs';
 import * as Firebase from 'firebase';
-import { Observable, from } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { tap, switchMap, map, take } from 'rxjs/operators';
+
 import { User } from '../models/user.model';
 
 @Injectable({

@@ -1,12 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { StoriesService } from './stories.service';
-import {
-  HttpClientTestingModule,
-  HttpTestingController
-} from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
-import { RouterTestingModule } from '@angular/router/testing';
+import { HttpTestingController } from '@angular/common/http/testing';
+
 import { Story } from '../models/story.model';
+import { StoriesService } from './stories.service';
+import { SharedTestModule } from '../shared-test.module';
 
 describe('StoriesService', () => {
   let httpClient: HttpClient;
@@ -15,7 +13,7 @@ describe('StoriesService', () => {
 
   beforeEach(() =>
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule],
+      imports: [SharedTestModule],
       providers: [StoriesService]
     })
   );

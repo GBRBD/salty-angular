@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import {
   FormGroupDirective,
@@ -5,10 +6,9 @@ import {
   Validators,
   FormBuilder
 } from '@angular/forms';
+
 import { User } from 'src/app/shared/models/user.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { Router } from '@angular/router';
-import { from } from 'rxjs';
 
 @Component({
   selector: 'app-login',

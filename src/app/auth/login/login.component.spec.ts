@@ -1,14 +1,13 @@
+import { AbstractControl } from '@angular/forms';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
-import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { HelperService } from 'src/app/shared/services/helper.service';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { SharedTestModule } from 'src/app/shared/shared-test.module';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -23,9 +22,7 @@ describe('LoginComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        SharedModule,
-        ReactiveFormsModule,
-        RouterTestingModule,
+        SharedTestModule,
         AngularFireModule.initializeApp(environment.firebase)
       ],
       declarations: [LoginComponent],

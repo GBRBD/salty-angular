@@ -1,10 +1,9 @@
+import { AbstractControl } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ReactiveFormsModule, AbstractControl } from '@angular/forms';
 
-import { SharedModule } from 'src/app/shared/shared.module';
-import { EditStoryComponent } from './edit-story.component';
 import { Story } from '../shared/models/story.model';
+import { EditStoryComponent } from './edit-story.component';
+import { SharedTestModule } from '../shared/shared-test.module';
 import { HelperService } from '../shared/services/helper.service';
 import { StoriesService } from '../shared/services/stories.service';
 
@@ -25,7 +24,7 @@ describe('EditStoryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [SharedModule, ReactiveFormsModule, RouterTestingModule],
+      imports: [SharedTestModule],
       declarations: [EditStoryComponent],
       providers: [HelperService, StoriesService]
     }).compileComponents();

@@ -1,3 +1,6 @@
+import { Router } from '@angular/router';
+import { from, Subscription } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { Component, OnInit, ViewChild, NgZone, OnDestroy } from '@angular/core';
 import {
   FormGroupDirective,
@@ -5,11 +8,9 @@ import {
   FormBuilder,
   Validators
 } from '@angular/forms';
-import { Router } from '@angular/router';
+
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { User } from 'src/app/shared/models/user.model';
-import { from, Subscription } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
@@ -28,6 +29,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     tooLongPasswordError: 'Password is too long! Max 32 characters!'
   };
   private registerSub: Subscription;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,

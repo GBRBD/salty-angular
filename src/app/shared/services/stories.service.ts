@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Story } from '../models/story.model';
-import { HttpClient } from '@angular/common/http';
 import { take } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+import { Story } from '../models/story.model';
 
 @Injectable({
   providedIn: 'root'

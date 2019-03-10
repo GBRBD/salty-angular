@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+
 import { Story } from 'src/app/shared/models/story.model';
 import { StoriesService } from 'src/app/shared/services/stories.service';
 

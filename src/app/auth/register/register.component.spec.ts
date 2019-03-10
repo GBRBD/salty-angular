@@ -1,12 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RegisterComponent } from './register.component';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { ReactiveFormsModule, AbstractControl } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from 'src/app/shared/services/auth.service';
-import { environment } from 'src/environments/environment';
+import { AbstractControl } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { RegisterComponent } from './register.component';
+import { environment } from 'src/environments/environment';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { SharedTestModule } from 'src/app/shared/shared-test.module';
 import { HelperService } from 'src/app/shared/services/helper.service';
 
 describe('RegisterComponent', () => {
@@ -23,9 +23,7 @@ describe('RegisterComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        SharedModule,
-        ReactiveFormsModule,
-        RouterTestingModule,
+        SharedTestModule,
         AngularFireModule.initializeApp(environment.firebase)
       ],
       declarations: [RegisterComponent],
