@@ -56,11 +56,12 @@ describe('StoriesService', () => {
   });
 
   describe('#deleteStory', () => {
-    it('should make a POST request', () => {
+    it('should make a DELETE request', () => {
       storiesService.deleteStory(testStory).subscribe();
-      const req = httpTestingController.expectOne('api/v1/stories/delete');
-      expect(req.request.method).toEqual('POST');
-      expect(req.request.body).toEqual(testStory);
+      const req = httpTestingController.expectOne(
+        `api/v1/stories/delete/${testStory._id}`
+      );
+      expect(req.request.method).toEqual('DELETE');
     });
   });
 

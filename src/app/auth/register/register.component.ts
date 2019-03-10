@@ -38,8 +38,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initializeForm();
-    this.authService.getIdToken.subscribe(x => console.log(x));
   }
+
   ngOnDestroy() {
     if (this.registerSub) {
       this.registerSub.unsubscribe();
