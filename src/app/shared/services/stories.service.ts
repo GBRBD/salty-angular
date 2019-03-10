@@ -27,6 +27,6 @@ export class StoriesService {
   }
 
   deleteStory(story: Story) {
-    return this.http.post<Story>(`api/v1/stories/delete`, story);
+    return this.http.delete<Story>(`api/v1/stories/delete/${story._id}`);
   }
 }
