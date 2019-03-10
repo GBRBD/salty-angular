@@ -9,11 +9,15 @@ import { StoryListComponent } from './story/story-list/story-list.component';
 
 import { AuthGuard } from './core/guards/guard';
 import { StoryResolver } from './core/resolvers/story.resolver';
+import { ProfileComponent } from './profile/profile.component';
+import { SecurityComponent } from './auth/security/security.component';
 
 const routes: Routes = [
   { path: '', component: StoryListComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'security', component: SecurityComponent },
   {
     path: 's/create',
     component: CreateStoryComponent,

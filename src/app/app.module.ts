@@ -18,19 +18,21 @@ import { environment } from 'src/environments/environment';
 
 import { ApiInterceptor } from './core/interceptors/api.interceptor';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { ProfileModule } from './profile/profile.module';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
   imports: [
     BrowserModule,
-    AngularFireModule.initializeApp(environment.firebase),
     AppRoutingModule,
-    SharedModule,
     CoreModule,
+    SharedModule,
+    AuthModule,
     StoryModule,
-    CreateStoryModule,
+    ProfileModule,
     EditStoryModule,
-    AuthModule
+    CreateStoryModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
