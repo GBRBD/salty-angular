@@ -6,7 +6,53 @@
         Profile
       </ng-template>
 
-      Content 1
+      <h1 class="mat-headline">Avatar</h1>
+      <div class="avatar-field">
+        <img
+          class="avatar"
+          src="https://material.angular.io/assets/img/examples/shiba1.jpg"
+          alt=""
+        />
+        <button mat-raised-button color="accent" class="image-button">
+          Upload Image
+        </button>
+      </div>
+      <h1 class="mat-headline">Username</h1>
+      <form
+        [formGroup]="usernameForm"
+        #usernameFormDirective="ngForm"
+        (ngSubmit)="onChangeUsernameSubmit()"
+      >
+        <mat-form-field hintLabel="Max 12 characters">
+          <input
+            matInput
+            placeholder="Change your username"
+            formControlName="username"
+            required
+            maxlength="12"
+          />
+
+          <mat-hint align="end">{{ username.value?.length || 0 }}/12</mat-hint>
+          <mat-error
+            class="username"
+            *ngIf="username.touched && username.hasError('required')"
+            >{{ helperService.messages.emptyUsernameError }}</mat-error
+          >
+          <mat-error
+            class="username"
+            *ngIf="username.touched && username.hasError('maxlength')"
+            >{{ helperService.messages.tooLongUsernameError }}</mat-error
+          >
+        </mat-form-field>
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          [disabled]="!usernameForm.valid"
+        >
+          Update
+        </button>
+      </form>
     </mat-tab>
 
     <mat-tab>

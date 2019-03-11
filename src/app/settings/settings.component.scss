@@ -9,6 +9,28 @@ mat-card {
     align-self: flex-end;
     margin: 1rem 0;
   }
+
+  .mat-headline {
+    margin: 1rem;
+  }
+
+  .avatar-field {
+    display: flex;
+    align-items: center;
+  }
+  .avatar {
+    margin: 1rem;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    object-fit: cover;
+  }
+
+  .image-button {
+    align-self: center;
+    margin-left: 1rem;
+  }
 }
 
 @media only screen and (min-width: 600px) {

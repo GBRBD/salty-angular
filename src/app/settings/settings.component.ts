@@ -22,18 +22,21 @@ import { HelperService } from '../shared/services/helper.service';
 export class SettingsComponent implements OnInit, OnDestroy {
   @ViewChild('emailFormDirective') emailFormDirective: FormGroupDirective;
   @ViewChild('passwordFormDirective') passwordFormDirective: FormGroupDirective;
+  @ViewChild('usernameFormDirective') usernameFormDirective: FormGroupDirective;
 
   user: User;
   emailForm: FormGroup;
   passwordForm: FormGroup;
+  usernameForm: FormGroup;
   private updateEmailSub: Subscription;
   private updatePasswordSub: Subscription;
+  private updateUsernameSub: Subscription;
 
   constructor(
     private fb: FormBuilder,
     public authService: AuthService,
     private userService: UserService,
-    private helperService: HelperService
+    public helperService: HelperService
   ) {
     this.authService.user.subscribe(user => {
       this.user = user;
@@ -41,6 +44,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.initializeUsernameForm();
     this.initializeEmailForm();
     this.initializePasswordForm();
   }
@@ -49,12 +53,20 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.unsubscribeFromEverything();
   }
 
+  onChangeUsernameSubmit() {}
+
   onChangePasswordSubmit() {
     this.changePassword();
   }
 
   onChangeEmailSubmit() {
     this.changeEmail();
+  }
+
+  private initializeUsernameForm() {
+    this.usernameForm = this.fb.group({
+      username: this.initUsernameField()
+    });
   }
 
   private initializeEmailForm() {
@@ -119,6 +131,13 @@ export class SettingsComponent implements OnInit, OnDestroy {
       .catch(error => {
         this.catchErrors(error);
       });
+  }
+
+  private initUsernameField(): any {
+    return [
+      null,
+      [Validators.required, Validators.minLength(4), Validators.maxLength(12)]
+    ];
   }
 
   private initEmailField(): any {
@@ -190,5 +209,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   get confirmPassword() {
     return this.passwordForm.get('confirmPassword');
+  }
+  get username() {
+    return this.usernameForm.get('username');
   }
 }
