@@ -11,6 +11,7 @@ import { AuthGuard } from './core/guards/guard';
 import { StoryResolver } from './core/resolvers/story.resolver';
 import { ProfileComponent } from './profile/profile.component';
 import { SecurityComponent } from './auth/security/security.component';
+import { MyStoriesComponent } from './story/my-stories/my-stories.component';
 
 const routes: Routes = [
   { path: '', component: StoryListComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'security', component: SecurityComponent },
+  { path: 'mystories', component: MyStoriesComponent },
   {
     path: 's/create',
     component: CreateStoryComponent,
