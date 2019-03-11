@@ -18,4 +18,8 @@ export class UserService {
   getUserStories() {
     return this.http.get<Story[]>(`api/v1/user/stories`).pipe(take(1));
   }
+
+  updateUserEmail(email: string) {
+    return this.http.put<string>('api/v1/user/updateemail', { email });
+  }
 }

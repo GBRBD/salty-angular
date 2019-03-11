@@ -26,7 +26,7 @@
           <form
             [formGroup]="passwordForm"
             #passwordFormDirective="ngForm"
-            (ngSubmit)="onPasswordChangeSubmit()"
+            (ngSubmit)="onChangePasswordSubmit()"
           >
             <mat-form-field hintLabel="Minimum 6, maximum 32 characters">
               <input
@@ -150,7 +150,7 @@
           <form
             [formGroup]="emailForm"
             #emailFormDirective="ngForm"
-            (ngSubmit)="onEmailChangeSubmit()"
+            (ngSubmit)="onChangeEmailSubmit()"
           >
             <mat-form-field>
               <input
