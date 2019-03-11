@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
+import { SettingsComponent } from './settings.component';
 import { SharedModule } from '../shared/shared.module';
-import { ProfileComponent } from './profile.component';
 
 @NgModule({
-  declarations: [ProfileComponent],
+  declarations: [SettingsComponent],
   imports: [SharedModule]
 })
-export class ProfileModule {}
+export class SettingsModule {}

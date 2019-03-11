@@ -18,7 +18,7 @@ import { environment } from 'src/environments/environment';
 
 import { ApiInterceptor } from './core/interceptors/api.interceptor';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
-import { ProfileModule } from './profile/profile.module';
+import { SettingsModule } from './settings/settings.module';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -29,7 +29,8 @@ import { ProfileModule } from './profile/profile.module';
     SharedModule,
     AuthModule,
     StoryModule,
-    ProfileModule,
+    SettingsModule,
+
     EditStoryModule,
     CreateStoryModule,
     AngularFireModule.initializeApp(environment.firebase)
