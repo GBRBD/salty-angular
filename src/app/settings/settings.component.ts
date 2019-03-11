@@ -1,4 +1,7 @@
+import { take } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 import {
   FormGroupDirective,
   FormGroup,
@@ -6,12 +9,10 @@ import {
   Validators
 } from '@angular/forms';
 
-import { AuthService } from '../shared/services/auth.service';
 import { User } from '../shared/models/user.model';
+import { AuthService } from '../shared/services/auth.service';
 import { UserService } from '../shared/services/user.service';
-import { take } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
-import { MatSnackBar } from '@angular/material';
+import { HelperService } from '../shared/services/helper.service';
 
 @Component({
   selector: 'app-settings',
@@ -21,32 +22,18 @@ import { MatSnackBar } from '@angular/material';
 export class SettingsComponent implements OnInit, OnDestroy {
   @ViewChild('emailFormDirective') emailFormDirective: FormGroupDirective;
   @ViewChild('passwordFormDirective') passwordFormDirective: FormGroupDirective;
+
+  user: User;
   emailForm: FormGroup;
   passwordForm: FormGroup;
-  user: User;
   private updateEmailSub: Subscription;
   private updatePasswordSub: Subscription;
-
-  errorMessages = {
-    emptyUsernameError: 'Please enter a username!',
-    tooLongUsernameError: 'Username is too long! Max 12 character!',
-    emptyEmailError: 'Please enter an E-mail address!',
-    emptyPasswordError: 'Please enter a password!',
-    tooLongPasswordError: 'Password is too long! Max 32 characters!',
-    passwordDontMatch: 'Your password and confirmation password do not match!',
-    wrongPassword: 'Wrong password 😞',
-    emailUpdated: 'Your e-mail address has been updated successfully‏!',
-    tryAgainLater:
-      'There was an error. Please try again later. That’s all we know.',
-    passwordsNotMatch: `New password and confirm password don't match`,
-    passwordUpdated: 'Your password has been updated successfully‏!'
-  };
 
   constructor(
     private fb: FormBuilder,
     public authService: AuthService,
     private userService: UserService,
-    private snackBar: MatSnackBar
+    private helperService: HelperService
   ) {
     this.authService.user.subscribe(user => {
       this.user = user;
@@ -59,12 +46,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.updateEmailSub) {
-      this.updateEmailSub.unsubscribe();
-    }
-    if (this.updatePasswordSub) {
-      this.updatePasswordSub.unsubscribe();
-    }
+    this.unsubscribeFromEverything();
   }
 
   onChangePasswordSubmit() {
@@ -90,9 +72,20 @@ export class SettingsComponent implements OnInit, OnDestroy {
     });
   }
 
+  private unsubscribeFromEverything() {
+    if (this.updateEmailSub) {
+      this.updateEmailSub.unsubscribe();
+    }
+    if (this.updatePasswordSub) {
+      this.updatePasswordSub.unsubscribe();
+    }
+  }
+
   private changePassword() {
     if (this.newPassword.value !== this.confirmPassword.value) {
-      this.showSnackBar(this.errorMessages.passwordsNotMatch);
+      this.helperService.showSnackBar(
+        this.helperService.messages.passwordsNotMatch
+      );
     } else {
       this.authService
         .reauthenticateAndRetrieveDataWithCredential(
@@ -103,8 +96,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
           return this.authService.updatePassword(this.newPassword.value);
         })
         .then(() => {
-          this.resetForm(this.passwordForm, this.passwordFormDirective);
-          this.showSnackBar(this.errorMessages.passwordUpdated);
+          this.resetPasswordFormAndShowSnackBar();
         })
         .catch(error => {
           this.catchErrors(error);
@@ -122,7 +114,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         return this.updateEmailInFirebase();
       })
       .then(() => {
-        this.resetFormAndUpdateEmailInDatabase();
+        this.updateEmailInDatabaseAndResetEmailFormAndShowSnackBar();
       })
       .catch(error => {
         this.catchErrors(error);
@@ -140,41 +132,44 @@ export class SettingsComponent implements OnInit, OnDestroy {
     ];
   }
 
+  private resetPasswordFormAndShowSnackBar() {
+    this.helperService.resetForm(this.passwordForm, this.passwordFormDirective);
+    this.helperService.showSnackBar(
+      this.helperService.messages.passwordUpdated
+    );
+  }
+
   private updateEmailInFirebase(): void | PromiseLike<void> {
     return this.authService.updateEmail(this.email.value);
   }
 
-  private resetFormAndUpdateEmailInDatabase() {
-    this.resetForm(this.emailForm, this.emailFormDirective);
+  private updateEmailInDatabaseAndResetEmailFormAndShowSnackBar() {
     this.updateEmailSub = this.userService
       .updateUserEmail(this.email.value)
       .pipe(take(1))
       .subscribe(
-        response => this.showSnackBar(this.errorMessages.emailUpdated),
-        error => this.showSnackBar(this.errorMessages.tryAgainLater)
+        response =>
+          this.helperService.showSnackBar(
+            this.helperService.messages.emailUpdated
+          ),
+        error =>
+          this.helperService.showSnackBar(
+            this.helperService.messages.tryAgainLater
+          )
       );
+    this.helperService.resetForm(this.emailForm, this.emailFormDirective);
   }
 
   private catchErrors(error: any) {
     if (error.code === 'auth/wrong-password') {
-      this.showSnackBar(this.errorMessages.wrongPassword);
+      this.helperService.showSnackBar(
+        this.helperService.messages.wrongPassword
+      );
     } else {
-      this.showSnackBar(this.errorMessages.tryAgainLater);
+      this.helperService.showSnackBar(
+        this.helperService.messages.tryAgainLater
+      );
     }
-  }
-
-  private showSnackBar(message: string) {
-    this.snackBar.open(message, '', {
-      duration: 5000
-    });
-  }
-
-  private resetForm(
-    formGroup: FormGroup,
-    formGroupDirective: FormGroupDirective
-  ) {
-    formGroup.reset();
-    formGroupDirective.resetForm();
   }
 
   get email() {
