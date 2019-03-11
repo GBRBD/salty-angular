@@ -120,6 +120,14 @@
                 "
                 >{{ errorMessages.tooLongPasswordError }}</mat-error
               >
+              <!-- <mat-error
+                class="password"
+                *ngIf="
+                  passwordForm.controls.confirmPassword.value !==
+                  passwordForm.controls.newPassword.value
+                "
+                >{{ errorMessages.passwordDontMatch }}</mat-error
+              > -->
             </mat-form-field>
             <button
               type="submit"
@@ -147,7 +155,7 @@
             <mat-form-field>
               <input
                 matInput
-                placeholder="E-mail address"
+                placeholder="New E-mail Address"
                 formControlName="email"
                 required
                 type="email"

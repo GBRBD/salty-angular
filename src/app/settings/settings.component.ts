@@ -22,7 +22,8 @@ export class SettingsComponent implements OnInit {
     tooLongUsernameError: 'Username is too long! Max 12 character!',
     emptyEmailError: 'Please enter an E-mail address!',
     emptyPasswordError: 'Please enter a password!',
-    tooLongPasswordError: 'Password is too long! Max 32 characters!'
+    tooLongPasswordError: 'Password is too long! Max 32 characters!',
+    passwordDontMatch: 'Your password and confirmation password do not match!'
   };
   constructor(private fb: FormBuilder, public authService: AuthService) {}
 
@@ -31,12 +32,8 @@ export class SettingsComponent implements OnInit {
     this.initializePasswordForm();
   }
 
-  onEmailChangeSubmit() {
-    console.log('pina');
-  }
-  onPasswordChangeSubmit() {
-    console.log('pina');
-  }
+  onEmailChangeSubmit() {}
+  onPasswordChangeSubmit() {}
 
   private initializeEmailForm() {
     this.emailForm = this.fb.group({
