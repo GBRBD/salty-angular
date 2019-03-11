@@ -16,8 +16,12 @@ const routes: Routes = [
   { path: '', component: StoryListComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'mystories', component: MyStoriesComponent },
-  { path: 'settings', component: SettingsComponent },
+  {
+    path: 'mystories',
+    component: MyStoriesComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   {
     path: 's/create',
     component: CreateStoryComponent,

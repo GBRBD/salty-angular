@@ -1,6 +1,209 @@
 <mat-card>
-  Profile
-</mat-card>
-<mat-card>
-  Security
+  <mat-tab-group mat-stretch-tabs>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="icon">account_circle</mat-icon>
+        Profile
+      </ng-template>
+
+      Content 1
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="icon">lock</mat-icon>
+        Security
+      </ng-template>
+
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Change your password
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <form
+            [formGroup]="passwordForm"
+            #passwordFormDirective="ngForm"
+            (ngSubmit)="onPasswordChangeSubmit()"
+          >
+            <mat-form-field hintLabel="Minimum 6, maximum 32 characters">
+              <input
+                matInput
+                placeholder="Current Password"
+                formControlName="currentPassword"
+                required
+                type="password"
+                maxlength="32"
+              />
+              <mat-hint align="end"
+                >{{
+                  passwordForm.controls.currentPassword.value?.length || 0
+                }}/32</mat-hint
+              >
+              <mat-error
+                class="password"
+                *ngIf="
+                  passwordForm.controls.currentPassword.touched &&
+                  passwordForm.controls.currentPassword.hasError('required')
+                "
+                >{{ errorMessages.emptyPasswordError }}</mat-error
+              >
+              <mat-error
+                class="password"
+                *ngIf="
+                  passwordForm.controls.currentPassword.touched &&
+                  passwordForm.controls.currentPassword.hasError('maxlength')
+                "
+                >{{ errorMessages.tooLongPasswordError }}</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field hintLabel="Minimum 6, maximum 32 characters">
+              <input
+                matInput
+                placeholder="New Password"
+                formControlName="newPassword"
+                required
+                type="password"
+                maxlength="32"
+              />
+              <mat-hint align="end"
+                >{{
+                  passwordForm.controls.newPassword.value?.length || 0
+                }}/32</mat-hint
+              >
+              <mat-error
+                class="password"
+                *ngIf="
+                  passwordForm.controls.newPassword.touched &&
+                  passwordForm.controls.newPassword.hasError('required')
+                "
+                >{{ errorMessages.emptyPasswordError }}</mat-error
+              >
+              <mat-error
+                class="password"
+                *ngIf="
+                  passwordForm.controls.newPassword.touched &&
+                  passwordForm.controls.newPassword.hasError('maxlength')
+                "
+                >{{ errorMessages.tooLongPasswordError }}</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field hintLabel="Minimum 6, maximum 32 characters">
+              <input
+                matInput
+                placeholder="Confirm New Password"
+                formControlName="confirmPassword"
+                required
+                type="password"
+                maxlength="32"
+              />
+              <mat-hint align="end"
+                >{{
+                  passwordForm.controls.confirmPassword.value?.length || 0
+                }}/32</mat-hint
+              >
+              <mat-error
+                class="password"
+                *ngIf="
+                  passwordForm.controls.confirmPassword.touched &&
+                  passwordForm.controls.confirmPassword.hasError('required')
+                "
+                >{{ errorMessages.emptyPasswordError }}</mat-error
+              >
+              <mat-error
+                class="password"
+                *ngIf="
+                  passwordForm.controls.confirmPassword.touched &&
+                  passwordForm.controls.confirmPassword.hasError('maxlength')
+                "
+                >{{ errorMessages.tooLongPasswordError }}</mat-error
+              >
+            </mat-form-field>
+            <button
+              type="submit"
+              mat-raised-button
+              color="primary"
+              [disabled]="!passwordForm.valid"
+            >
+              Update
+            </button>
+          </form>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Change your e-mail address
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <form
+            [formGroup]="emailForm"
+            #emailFormDirective="ngForm"
+            (ngSubmit)="onEmailChangeSubmit()"
+          >
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="E-mail address"
+                formControlName="email"
+                required
+                type="email"
+              />
+
+              <mat-error
+                class="email"
+                *ngIf="
+                  emailForm.controls.email.touched &&
+                  emailForm.controls.email.hasError('required')
+                "
+                >{{ errorMessages.emptyEmailError }}</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field hintLabel="Minimum 6, maximum 32 characters">
+              <input
+                matInput
+                placeholder="Password"
+                formControlName="password"
+                required
+                type="password"
+                maxlength="32"
+              />
+              <mat-hint align="end"
+                >{{
+                  emailForm.controls.password.value?.length || 0
+                }}/32</mat-hint
+              >
+              <mat-error
+                class="password"
+                *ngIf="
+                  emailForm.controls.password.touched &&
+                  emailForm.controls.password.hasError('required')
+                "
+                >{{ errorMessages.emptyPasswordError }}</mat-error
+              >
+              <mat-error
+                class="password"
+                *ngIf="
+                  emailForm.controls.password.touched &&
+                  emailForm.controls.password.hasError('maxlength')
+                "
+                >{{ errorMessages.tooLongPasswordError }}</mat-error
+              >
+            </mat-form-field>
+            <button
+              type="submit"
+              mat-raised-button
+              color="primary"
+              [disabled]="!emailForm.valid"
+            >
+              Update
+            </button>
+          </form>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-tab>
+  </mat-tab-group>
 </mat-card>

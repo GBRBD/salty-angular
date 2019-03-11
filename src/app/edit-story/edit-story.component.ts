@@ -100,7 +100,7 @@ export class EditStoryComponent implements OnInit, OnDestroy {
       uid: this.story.uid
     };
     this.editeSub = this.storiesService.editStory(story).subscribe(() => {
-      this.router.navigate(['/']);
+      this.router.navigate(['/mystories']);
     });
   }
 
@@ -113,7 +113,7 @@ export class EditStoryComponent implements OnInit, OnDestroy {
     this.deleteSub = this.storiesService
       .deleteStory(this.story)
       .subscribe(() => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/mystories']);
       });
   }
 }
