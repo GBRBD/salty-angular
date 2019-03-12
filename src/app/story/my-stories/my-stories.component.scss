@@ -1,9 +1,6 @@
 mat-card {
   margin: 1rem;
-
-  .example-card {
-    max-width: 400px;
-  }
+  max-width: 400px;
 
   .example-header-image {
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
@@ -12,6 +9,22 @@ mat-card {
   mat-card-title {
     a {
       word-break: break-word;
+    }
+  }
+
+  mat-card-subtitle {
+    .username {
+      color: rgba(0, 0, 0, 0.54);
+    }
+    .username:hover {
+      color: darkgrey;
+    }
+
+    .date {
+      color: rgba(0, 0, 0, 0.54);
+    }
+    .date:hover {
+      color: darkgrey;
     }
   }
 

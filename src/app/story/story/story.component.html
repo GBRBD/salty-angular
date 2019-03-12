@@ -1,18 +1,13 @@
-<mat-card *ngFor="let story of (stories$ | async)">
-  <a [routerLink]="['/s', story._id]">
+<ng-container *ngIf="(story$ | async); let story">
+  <mat-card>
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title
-        ><a [routerLink]="['/s', story._id]">{{ story.title }}</a>
+        ><span>{{ story.title }}</span>
       </mat-card-title>
       <mat-card-subtitle
-        ><a class="username" [routerLink]="['/s', story._id]">{{
-          story.username
-        }}</a>
-        ·
-        <a class="date" [routerLink]="['/s', story._id]">{{
-          story.date | date: 'mediumDate'
-        }}</a></mat-card-subtitle
+        ><span>{{ story.username }}</span> ·
+        <span>{{ story.date | date: 'mediumDate' }}</span></mat-card-subtitle
       >
     </mat-card-header>
 
@@ -35,5 +30,5 @@
         <mat-icon>comment</mat-icon>
       </button>
     </mat-card-actions>
-  </a>
-</mat-card>
+  </mat-card>
+</ng-container>

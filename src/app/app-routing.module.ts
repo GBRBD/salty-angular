@@ -11,6 +11,7 @@ import { AuthGuard } from './core/guards/guard';
 import { StoryResolver } from './core/resolvers/story.resolver';
 import { MyStoriesComponent } from './story/my-stories/my-stories.component';
 import { SettingsComponent } from './settings/settings.component';
+import { StoryComponent } from './story/story/story.component';
 
 const routes: Routes = [
   { path: '', component: StoryListComponent },
@@ -32,6 +33,10 @@ const routes: Routes = [
     component: EditStoryComponent,
     resolve: { story: StoryResolver },
     canActivate: [AuthGuard]
+  },
+  {
+    path: 's/:id',
+    component: StoryComponent
   }
 ];
 

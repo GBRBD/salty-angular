@@ -10,6 +10,8 @@ import {
 
 import { Story } from '../shared/models/story.model';
 import { StoriesService } from '../shared/services/stories.service';
+import { AuthService } from '../shared/services/auth.service';
+import { User } from '../shared/models/user.model';
 
 @Component({
   selector: 'app-edit-story',
@@ -33,9 +35,15 @@ export class EditStoryComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     public storiesService: StoriesService,
     public activatedRoute: ActivatedRoute,
+    public authService: AuthService,
     private router: Router
   ) {
     this.resolveStory();
+    this.authService.user.subscribe(user => {
+      if (user.uid !== this.story.uid) {
+        this.router.navigate(['/']);
+      }
+    });
   }
 
   ngOnInit() {
