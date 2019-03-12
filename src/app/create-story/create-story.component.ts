@@ -83,7 +83,9 @@ export class CreateStoryComponent implements OnInit, OnDestroy {
     };
     this.createSub = this.storiesService
       .createStory(story)
-      .subscribe(() => this.router.navigate(['/']));
+      .subscribe(response => {
+        this.router.navigate([`/s/${response._id}`]);
+      });
   }
 
   private resetForm() {

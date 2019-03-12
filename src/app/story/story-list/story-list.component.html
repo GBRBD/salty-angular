@@ -31,7 +31,11 @@
           <mat-icon>thumb_down_alt</mat-icon>
         </button>
       </div>
-      <button class="comments" mat-button matBadge="15">
+      <button
+        class="comments"
+        mat-button
+        matBadge="{{ story.comments.length }}"
+      >
         <mat-icon>comment</mat-icon>
       </button>
     </mat-card-actions>

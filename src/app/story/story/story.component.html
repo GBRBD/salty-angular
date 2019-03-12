@@ -26,7 +26,11 @@
           <mat-icon>thumb_down_alt</mat-icon>
         </button>
       </div>
-      <button class="comments" mat-button matBadge="15">
+      <button
+        class="comments"
+        mat-button
+        matBadge="{{ story.comments.length }}"
+      >
         <mat-icon>comment</mat-icon>
       </button>
     </mat-card-actions>
@@ -71,41 +75,17 @@
   <div class="comments">
     <h1 class="mat-headline">Comments</h1>
 
-    <mat-card>
+    <mat-card *ngFor="let comment of story.comments">
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
         <mat-card-title
-          ><span>{{ story.title }}</span>
+          ><span>{{ comment.comment }}</span>
         </mat-card-title>
         <mat-card-subtitle
-          ><span>{{ story.username }}</span> ·
-          <span>{{ story.date | date: 'mediumDate' }}</span></mat-card-subtitle
-        >
-      </mat-card-header>
-    </mat-card>
-
-    <mat-card>
-      <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title
-          ><span>{{ story.title }}</span>
-        </mat-card-title>
-        <mat-card-subtitle
-          ><span>{{ story.username }}</span> ·
-          <span>{{ story.date | date: 'mediumDate' }}</span></mat-card-subtitle
-        >
-      </mat-card-header>
-    </mat-card>
-
-    <mat-card>
-      <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title
-          ><span>{{ story.title }}</span>
-        </mat-card-title>
-        <mat-card-subtitle
-          ><span>{{ story.username }}</span> ·
-          <span>{{ story.date | date: 'mediumDate' }}</span></mat-card-subtitle
+          ><span>{{ comment.username }}</span> ·
+          <span>{{
+            comment.date | date: 'mediumDate'
+          }}</span></mat-card-subtitle
         >
       </mat-card-header>
     </mat-card>

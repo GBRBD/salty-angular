@@ -21,7 +21,8 @@ export class HelperService {
     passwordUpdated: 'Your password has been updated successfully‏!',
     usernameUpdated: 'Your username has been updated successfully‏!',
     tooLongComment: 'Comment is too long! Max 140 character!',
-    emptyComment: 'Please write a comment!'
+    emptyComment: 'Please write a comment!',
+    commentAdded: 'Your username has been added successfully‏!'
   };
 
   constructor(private snackBar: MatSnackBar) {}
