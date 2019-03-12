@@ -19,7 +19,9 @@ export class HelperService {
       'There was an error. Please try again later. That’s all we know.',
     passwordsNotMatch: `New password and confirm password don't match`,
     passwordUpdated: 'Your password has been updated successfully‏!',
-    usernameUpdated: 'Your username has been updated successfully‏!'
+    usernameUpdated: 'Your username has been updated successfully‏!',
+    tooLongComment: 'Comment is too long! Max 140 character!',
+    emptyComment: 'Please write a comment!'
   };
 
   constructor(private snackBar: MatSnackBar) {}

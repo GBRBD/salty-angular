@@ -1,13 +1,12 @@
 mat-card {
   margin: 1rem;
-  max-width: 400px;
 
   .example-header-image {
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     background-size: cover;
   }
   mat-card-title {
-    a {
+    span {
       word-break: break-word;
     }
   }
@@ -37,6 +36,16 @@ mat-card {
       color: black;
     }
   }
+  button {
+    align-self: flex-end;
+    margin: 1rem 0;
+  }
+}
+
+.comments {
+  h1 {
+    margin-left: 1rem;
+  }
 }
 
 @media only screen and (min-width: 600px) {
@@ -46,5 +55,13 @@ mat-card {
   mat-card {
     max-width: 700px;
     margin: 1rem auto;
+  }
+
+  .comments {
+    max-width: 732px;
+    margin: 0 auto;
+    h1 {
+      margin-left: 0px;
+    }
   }
 }

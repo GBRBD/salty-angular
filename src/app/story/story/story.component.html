@@ -31,4 +31,83 @@
       </button>
     </mat-card-actions>
   </mat-card>
+
+  <mat-card *ngIf="(authService.getUserState | async)">
+    <h1 class="mat-headline">Add a comment</h1>
+
+    <form
+      [formGroup]="commentForm"
+      #commentFormDirective="ngForm"
+      (ngSubmit)="onCommentSubmit()"
+    >
+      <mat-form-field hintLabel="Max 12 characters">
+        <input
+          matInput
+          placeholder="Write your comment here"
+          formControlName="comment"
+          required
+          maxlength="140"
+        />
+
+        <mat-hint align="end">{{ comment.value?.length || 0 }}/140</mat-hint>
+        <mat-error *ngIf="comment.touched && comment.hasError('required')">{{
+          helperService.messages.emptyComment
+        }}</mat-error>
+        <mat-error *ngIf="comment.touched && comment.hasError('maxlength')">{{
+          helperService.messages.tooLongComment
+        }}</mat-error>
+      </mat-form-field>
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        [disabled]="!commentForm.valid"
+      >
+        Submit
+      </button>
+    </form>
+  </mat-card>
+
+  <div class="comments">
+    <h1 class="mat-headline">Comments</h1>
+
+    <mat-card>
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title
+          ><span>{{ story.title }}</span>
+        </mat-card-title>
+        <mat-card-subtitle
+          ><span>{{ story.username }}</span> ·
+          <span>{{ story.date | date: 'mediumDate' }}</span></mat-card-subtitle
+        >
+      </mat-card-header>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title
+          ><span>{{ story.title }}</span>
+        </mat-card-title>
+        <mat-card-subtitle
+          ><span>{{ story.username }}</span> ·
+          <span>{{ story.date | date: 'mediumDate' }}</span></mat-card-subtitle
+        >
+      </mat-card-header>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title
+          ><span>{{ story.title }}</span>
+        </mat-card-title>
+        <mat-card-subtitle
+          ><span>{{ story.username }}</span> ·
+          <span>{{ story.date | date: 'mediumDate' }}</span></mat-card-subtitle
+        >
+      </mat-card-header>
+    </mat-card>
+  </div>
 </ng-container>
