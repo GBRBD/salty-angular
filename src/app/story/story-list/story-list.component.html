@@ -34,7 +34,7 @@
       <button
         class="comments"
         mat-button
-        matBadge="{{ story.comments.length }}"
+        matBadge="{{ story.comments ? story.comments.length : 0 }}"
       >
         <mat-icon>comment</mat-icon>
       </button>
