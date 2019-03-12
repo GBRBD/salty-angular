@@ -172,7 +172,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   private initEmailField(): any {
-    return [this.user.email, [Validators.required, Validators.email]];
+    return [
+      this.user ? this.user.email : null,
+      [Validators.required, Validators.email]
+    ];
   }
 
   private initPasswordField(): any {

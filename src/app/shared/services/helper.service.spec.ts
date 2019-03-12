@@ -1,12 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 
 import { HelperService } from './helper.service';
+import { SharedTestModule } from '../shared-test.module';
 
 describe('HelperService', () => {
   let service: HelperService;
 
   beforeEach(() =>
-    TestBed.configureTestingModule({ providers: [HelperService] })
+    TestBed.configureTestingModule({
+      imports: [SharedTestModule],
+      providers: [HelperService]
+    })
   );
 
   beforeEach(() => {
