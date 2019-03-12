@@ -35,15 +35,9 @@ export class EditStoryComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     public storiesService: StoriesService,
     public activatedRoute: ActivatedRoute,
-    public authService: AuthService,
     private router: Router
   ) {
     this.resolveStory();
-    this.authService.user.subscribe(user => {
-      if (user.uid !== this.story.uid) {
-        this.router.navigate(['/']);
-      }
-    });
   }
 
   ngOnInit() {

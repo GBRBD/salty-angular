@@ -6,6 +6,8 @@ import { EditStoryComponent } from './edit-story.component';
 import { SharedTestModule } from '../shared/shared-test.module';
 import { HelperService } from '../shared/services/helper.service';
 import { StoriesService } from '../shared/services/stories.service';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
 
 describe('EditStoryComponent', () => {
   let component: EditStoryComponent;
