@@ -2,6 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StoryComponent } from './story.component';
 import { SharedTestModule } from 'src/app/shared/shared-test.module';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
 
 describe('StoryComponent', () => {
   let component: StoryComponent;
@@ -9,7 +11,10 @@ describe('StoryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [SharedTestModule],
+      imports: [
+        SharedTestModule,
+        AngularFireModule.initializeApp(environment.firebase)
+      ],
       declarations: [StoryComponent]
     }).compileComponents();
   }));
