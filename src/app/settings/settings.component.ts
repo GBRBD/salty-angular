@@ -31,6 +31,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   private updateEmailSub: Subscription;
   private updatePasswordSub: Subscription;
   private updateUsernameSub: Subscription;
+  private getUsernameSub: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -41,6 +42,11 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.authService.user.subscribe(user => {
       this.user = user;
     });
+    this.getUsernameSub = this.userService
+      .getUserFromDatabase()
+      .subscribe((user: User) => {
+        this.username.setValue(user.username);
+      });
   }
 
   ngOnInit() {
@@ -53,7 +59,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.unsubscribeFromEverything();
   }
 
-  onChangeUsernameSubmit() {}
+  onChangeUsernameSubmit() {
+    this.changeUsername();
+  }
 
   onChangePasswordSubmit() {
     this.changePassword();
@@ -91,6 +99,29 @@ export class SettingsComponent implements OnInit, OnDestroy {
     if (this.updatePasswordSub) {
       this.updatePasswordSub.unsubscribe();
     }
+    if (this.updateUsernameSub) {
+      this.updateUsernameSub.unsubscribe();
+    }
+    if (this.getUsernameSub) {
+      this.getUsernameSub.unsubscribe();
+    }
+  }
+
+  private changeUsername() {
+    this.updateUsernameSub = this.userService
+      .updateUsername(this.username.value)
+      .subscribe(
+        data => {
+          this.helperService.showSnackBar(
+            this.helperService.messages.usernameUpdated
+          );
+        },
+        error => {
+          this.helperService.showSnackBar(
+            this.helperService.messages.tryAgainLater
+          );
+        }
+      );
   }
 
   private changePassword() {
@@ -164,7 +195,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   private updateEmailInDatabaseAndResetEmailFormAndShowSnackBar() {
     this.updateEmailSub = this.userService
-      .updateUserEmail(this.email.value)
+      .updateEmail(this.email.value)
       .pipe(take(1))
       .subscribe(
         response =>

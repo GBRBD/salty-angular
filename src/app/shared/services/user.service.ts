@@ -15,11 +15,19 @@ export class UserService {
     return this.http.post('api/v1/user/create', user);
   }
 
+  getUserFromDatabase() {
+    return this.http.get('api/v1/user').pipe(take(1));
+  }
+
   getUserStories() {
     return this.http.get<Story[]>(`api/v1/user/stories`).pipe(take(1));
   }
 
-  updateUserEmail(email: string) {
+  updateEmail(email: string) {
     return this.http.put<string>('api/v1/user/updateemail', { email });
+  }
+
+  updateUsername(username: string) {
+    return this.http.put<string>('api/v1/user/updateusername', { username });
   }
 }

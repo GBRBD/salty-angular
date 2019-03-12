@@ -18,7 +18,8 @@ export class HelperService {
     tryAgainLater:
       'There was an error. Please try again later. That’s all we know.',
     passwordsNotMatch: `New password and confirm password don't match`,
-    passwordUpdated: 'Your password has been updated successfully‏!'
+    passwordUpdated: 'Your password has been updated successfully‏!',
+    usernameUpdated: 'Your username has been updated successfully‏!'
   };
 
   constructor(private snackBar: MatSnackBar) {}

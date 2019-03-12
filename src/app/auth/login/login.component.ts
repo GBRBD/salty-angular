@@ -42,7 +42,6 @@ export class LoginComponent implements OnInit {
       password: this.loginForm.value.password
     };
     this.ngZone.run(() => {
-      // from(this.authService.signIn(user)).subscribe(() => this.router.navigate(['/']));
       this.authService
         .signIn(user)
         .then(() => {
